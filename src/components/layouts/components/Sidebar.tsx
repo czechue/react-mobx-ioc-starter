@@ -14,22 +14,17 @@ type SidebarProps = {
 };
 
 const Sidebar = styled.div<SidebarProps>`
-  overflow: hidden;
+  display: flex;
+  flex-wrap: ${({ wrapReverse }) => (wrapReverse ? "wrap-reverse" : "wrap")};
+  gap: ${(props) => props.space!}
+    ${(props) => (props.noStretch ? "align-items: flex-start;" : "")};
 
   > * {
-    display: flex;
-    flex-wrap: ${({ wrapReverse }) => (wrapReverse ? "wrap-reverse" : "wrap")};
-    margin: calc(${(props) => selectSpace(props.space!)} / 2 * -1);
-    ${(props) => (props.noStretch ? "align-items: flex-start;" : "")}
-  }
-
-  > * > * {
     flex-grow: 1;
     ${({ sideWidth }) => (sideWidth ? `flex-basis: ${sideWidth};` : "")}
-    margin: calc(${(props) => selectSpace(props.space!)} / 2);
   }
 
-  > * > ${({ side }) => (side !== "left" ? `:first-child` : `:last-child`)} {
+  > ${({ side }) => (side !== "left" ? `:first-child` : `:last-child`)} {
     flex-basis: 0;
     flex-grow: 999;
     min-width: calc(

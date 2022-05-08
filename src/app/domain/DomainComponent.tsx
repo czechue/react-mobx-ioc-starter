@@ -20,22 +20,20 @@ export const DomainComponent = () => {
   return (
     <div>
       <Sidebar>
-        <div>
-          <Box>
-            Lorem pipidsa piid
-            <div style={{ minWidth: "100px" }}>
-              as piasdp iapds iasdp asdi pasd apsd apisd padi a
-            </div>
-          </Box>
-          <div style={{ minWidth: "300px" }}>
-            <Box>
-              <Stack>
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
-              </Stack>
-            </Box>
+        <Box>
+          Lorem pipidsa piid
+          <div style={{ minWidth: "100px" }}>
+            as piasdp iapds iasdp asdi pasd apsd apisd padi a
           </div>
+        </Box>
+        <div style={{ minWidth: "300px" }}>
+          <Box>
+            <Stack>
+              <Box>1</Box>
+              <Box>1</Box>
+              <Box>1</Box>
+            </Stack>
+          </Box>
         </div>
       </Sidebar>
       <Center gutters={space.s3}>
