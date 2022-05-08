@@ -7,6 +7,7 @@ import {
   Cluster,
   Frame,
   Grid,
+  Sidebar,
   Stack,
   Switcher,
 } from "../../components/layouts";
@@ -18,6 +19,25 @@ export const DomainComponent = () => {
 
   return (
     <div>
+      <Sidebar>
+        <div>
+          <Box>
+            Lorem pipidsa piid
+            <div style={{ minWidth: "100px" }}>
+              as piasdp iapds iasdp asdi pasd apsd apisd padi a
+            </div>
+          </Box>
+          <div style={{ minWidth: "300px" }}>
+            <Box>
+              <Stack>
+                <Box>1</Box>
+                <Box>1</Box>
+                <Box>1</Box>
+              </Stack>
+            </Box>
+          </div>
+        </div>
+      </Sidebar>
       <Center gutters={space.s3}>
         <h2>Box</h2>
         <Box padding={space.s4}>Box</Box>

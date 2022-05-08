@@ -6,7 +6,7 @@ import Frame from "./components/Frame";
 import Grid from "./components/Grid";
 // import Imposter from "./components/Imposter";
 // import Reel from "./components/Reel";
-// import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
 import Stack from "./components/Stack";
 import Switcher from "./components/Switcher";
 
@@ -19,7 +19,7 @@ export {
   Grid,
   // Imposter,
   // Reel,
-  // Sidebar,
+  Sidebar,
   Stack,
   Switcher,
 };
