@@ -7,7 +7,7 @@ import Grid from "./components/Grid";
 // import Imposter from "./components/Imposter";
 // import Reel from "./components/Reel";
 // import Sidebar from "./components/Sidebar";
-// import Stack from "./components/Stack";
+import Stack from "./components/Stack";
 import Switcher from "./components/Switcher";
 
 export {
@@ -20,6 +20,6 @@ export {
   // Imposter,
   // Reel,
   // Sidebar,
-  // Stack,
+  Stack,
   Switcher,
 };

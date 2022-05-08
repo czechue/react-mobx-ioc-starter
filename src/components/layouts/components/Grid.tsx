@@ -4,9 +4,8 @@ import styled, { css } from "styled-components";
 import { theme } from "../../../core/styles/theme";
 
 type GridProps = {
-  min: string;
-  isWide: boolean;
-  space: string;
+  min?: string;
+  space?: string;
 };
 
 const StyledGrid = styled.div<GridProps>`

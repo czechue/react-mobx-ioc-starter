@@ -1,40 +1,40 @@
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { InferPropTypes } from '../types';
+import { ReactNode } from "react";
+import styled, { css } from "styled-components";
 
-const StackPropTypes = {
-  recursive: PropTypes.bool,
-  splitAfter: PropTypes.number,
-  space: PropTypes.string,
+import { theme } from "../../../core/styles/theme";
+
+type StackProps = {
+  recursive?: boolean;
+  splitAfter?: number;
+  space?: string;
 };
-
-const StackDefaultProps = {
-  recursive: false,
-  space: 'var(--s1)',
-};
-
-type StackProps = InferPropTypes<
-  typeof StackPropTypes,
-  typeof StackDefaultProps
->;
 
 const Stack = styled.div<StackProps>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
-  ${props => props.recursive ? '' : '>'} * + * {
-    margin-top: ${props => props.space};
+  ${(props) => (props.recursive ? "" : ">")} * + * {
+    margin-top: ${(props) => props.space};
   }
 
-  ${({ splitAfter }) => splitAfter ? `
-    .stack-l > :nth-child(${splitAfter}) {
-      margin-bottom: auto;
-    }`
-    : ''}
+  ${({ splitAfter }) =>
+    splitAfter
+      ? css`
+          > :nth-child(${splitAfter}) {
+            margin-bottom: auto;
+          }
+        `
+      : ""}
 `;
 
-Stack.propTypes = StackPropTypes;
-Stack.defaultProps = StackDefaultProps;
+Stack.defaultProps = {
+  recursive: false,
+  space: theme.space.s1,
+};
 
-export default Stack;
+const StackComp = (props: StackProps & { children: ReactNode }) => (
+  <Stack {...props}>{props.children}</Stack>
+);
+
+export default StackComp;
