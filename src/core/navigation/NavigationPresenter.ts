@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { computed, makeObservable } from "mobx";
 import TreeModel from "tree-model";
 
-import { Router } from "../Routing/Router";
+import { Router } from "../routing/Router";
 import { AppNavigationModel, NavigationTree } from "./NavigationTree";
 
 @injectable()

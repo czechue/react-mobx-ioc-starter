@@ -2,10 +2,10 @@ import "reflect-metadata";
 
 import { Container } from "inversify";
 
-import { HttpGateway } from "../Http/DataGateway";
-import { Router } from "../Routing/Router";
-import { RouterGateway } from "../Routing/RouterGateway";
-import { RoutingState } from "../Routing/RoutingState";
+import { HttpGateway } from "../http/DataGateway";
+import { Router } from "../routing/Router";
+import { RouterGateway } from "../routing/RouterGateway";
+import { RoutingState } from "../routing/RoutingState";
 import { Types } from "../Types";
 
 export class BaseIOC {

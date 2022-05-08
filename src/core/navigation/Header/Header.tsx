@@ -1,10 +1,10 @@
 import { observer } from "mobx-react";
 import React from "react";
 
-import { InjectableProps } from "../../../libs/react-di";
-import { useInject } from "../../DI";
-import { Router } from "../../Routing/Router";
-import { RoutingState } from "../../Routing/RoutingState";
+import { InjectableProps } from "../../../libs/reactDI";
+import { useInject } from "../../di";
+import { Router } from "../../routing/Router";
+import { RoutingState } from "../../routing/RoutingState";
 import { NavigationPresenter } from "../NavigationPresenter";
 import { NavigationItemComponent } from "./NavigationItemComponent";
 

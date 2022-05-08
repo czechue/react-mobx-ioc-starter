@@ -3,8 +3,8 @@ import "reflect-metadata";
 import { inject, injectable } from "inversify";
 import { computed, makeObservable } from "mobx";
 
-import { Router } from "../core/Routing/Router";
-import { RoutingState } from "../core/Routing/RoutingState";
+import { Router } from "../core/routing/Router";
+import { RoutingState } from "../core/routing/RoutingState";
 
 @injectable()
 export class AppPresenter {

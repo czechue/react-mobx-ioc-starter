@@ -2,10 +2,11 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { useEffect } from "react";
 
-import { useInject } from "../core/DI";
-import { Header } from "../core/Navigation/Header/Header";
-import { InjectableProps } from "../libs/react-di";
+import { useInject } from "../core/di";
+import { Header } from "../core/navigation/Header/Header";
+import { InjectableProps } from "../libs/reactDI";
 import { AppPresenter } from "./AppPresenter";
+import { DomainComponent } from "./domain/DomainComponent";
 
 const services: InjectableProps<{
   presenter: AppPresenter;
@@ -27,7 +28,11 @@ export const AppComponent = observer(() => {
     },
     {
       id: "homeLink",
-      component: <div key="homeLink">home component</div>,
+      component: (
+        <div key="homeLink">
+          <DomainComponent />
+        </div>
+      ),
     },
     {
       id: "faqLink",
