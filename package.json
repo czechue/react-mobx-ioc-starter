@@ -19,6 +19,7 @@
     "navigo": "8.11.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-resize-observer-hook": "^0.0.2",
     "reflect-metadata": "0.1.13",
     "styled-components": "5.3.5",
     "tree-model": "1.0.7"

@@ -6,6 +6,7 @@ import {
   Center,
   Cluster,
   Frame,
+  Grid,
   Switcher,
 } from "../../components/layouts";
 import Cover from "../../components/layouts/components/Cover";
@@ -61,6 +62,19 @@ export const DomainComponent = () => {
           <Box padding={space.s1}>Switcher 1</Box>
         </Switcher>
       </Center>
+
+      <h2>Grid</h2>
+      <Grid>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+        <Box padding={space.s1}>Switcher 1</Box>
+      </Grid>
     </div>
   );
 };
