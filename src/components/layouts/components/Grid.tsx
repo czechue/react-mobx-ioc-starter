@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
-import useResize from "react-resize-observer-hook";
-import styled from "styled-components";
+import React from "react";
+import styled, { css } from "styled-components";
 
 import { theme } from "../../../core/styles/theme";
 
@@ -14,35 +13,25 @@ const StyledGrid = styled.div<GridProps>`
   align-content: start;
   display: grid;
   gap: ${(props) => props.space};
-  grid-template-columns: ${(props) =>
-    props.isWide ? `repeat(auto-fit, minmax(${props.min}, 1fr))` : "100%"};
+
+  ${(props) => css`
+    @supports (width: min(${props.min}, 100%)) {
+      /* ↓ Enhance with the min() function
+				into multiple columns */
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(${props.min}, 100%), 1fr)
+      );
+    }
+  `}
 `;
 
 const Grid = (props: GridProps) => {
-  console.log(props);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [isWide, setIsWide] = useState(props.isWide);
-
-  useResize(gridRef, () => {
-    const element = gridRef.current;
-
-    if (element) {
-      const test = document.createElement("div");
-      test.style.width = props.min!;
-      element.appendChild(test);
-      const minToPixels = test.offsetWidth;
-      element.removeChild(test);
-
-      setIsWide(element.scrollWidth > minToPixels);
-    }
-  });
-
-  return <StyledGrid {...props} isWide={isWide} ref={gridRef} />;
+  return <StyledGrid {...props} />;
 };
 
 Grid.defaultProps = {
   min: "250px",
-  isWide: false,
   space: theme.space.s1,
 };
 
