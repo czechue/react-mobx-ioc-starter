@@ -1,38 +1,33 @@
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { InferPropTypes } from '../types';
+import { ReactNode } from "react";
+import styled from "styled-components";
 
-const ImposterPropTypes = {
-  breakout: PropTypes.bool,
-  margin: PropTypes.string,
-  fixed: PropTypes.bool,
+type ImposterProps = {
+  breakout?: boolean;
+  margin?: string;
+  fixed?: boolean;
 };
-
-const ImposterDefaultProps = {
-  breakout: false,
-  margin: '0',
-  fixed: false,
-};
-
-type ImposterProps = InferPropTypes<
-  typeof ImposterPropTypes,
-  typeof ImposterDefaultProps
->;
 
 const Imposter = styled.div<ImposterProps>`
-  position: ${props => props.fixed ? 'fixed' : 'absolute'};
+  position: ${(props) => (props.fixed ? "fixed" : "absolute")};
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
   /* Contents */
-  --margin: ${props => props.margin};
+  --margin: ${(props) => props.margin};
   overflow: auto;
   max-height: calc(100% - (var(--margin) * 2));
   max-width: calc(100% - (var(--margin) * 2));
 `;
 
-Imposter.propTypes = ImposterPropTypes;
-Imposter.defaultProps = ImposterDefaultProps;
+Imposter.defaultProps = {
+  breakout: false,
+  margin: "0",
+  fixed: false,
+};
 
-export default Imposter;
+const ImposterComp = (props: ImposterProps & { children: ReactNode }) => (
+  <Imposter {...props}>{props.children}</Imposter>
+);
+
+export default ImposterComp;

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import styled from "styled-components";
 
 import { theme } from "../../../core/styles/theme";
@@ -7,6 +7,7 @@ type BoxProps = {
   borderWidth?: string;
   invert?: boolean;
   padding?: string;
+  style?: CSSProperties;
 };
 
 const Box = styled.div<BoxProps>`
@@ -35,7 +36,9 @@ Box.defaultProps = {
 };
 
 const BoxComp = (props: BoxProps & { children: ReactNode }) => (
-  <Box {...props}>{props.children}</Box>
+  <Box {...props} style={props.style}>
+    {props.children}
+  </Box>
 );
 
 export default BoxComp;

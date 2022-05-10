@@ -7,6 +7,8 @@ import {
   Cluster,
   Frame,
   Grid,
+  Imposter,
+  Reel,
   Sidebar,
   Stack,
   Switcher,
@@ -107,6 +109,47 @@ export const DomainComponent = () => {
           </Stack>
         </Box>
       </Stack>
+
+      <Imposter>
+        <div style={{ background: "gray" }}>
+          <Box>
+            <h2>Imposter</h2>
+            <Box>Hej</Box>
+          </Box>
+        </div>
+      </Imposter>
+
+      <Center>
+        <Box style={{ marginTop: "12px" }}>
+          <h2>Reel</h2>
+          <Reel>
+            <Box>
+              <div
+                style={{
+                  height: "20em",
+                  width: "20em",
+                }}
+              ></div>
+            </Box>
+            <Box>
+              <div
+                style={{
+                  height: "20em",
+                  width: "20em",
+                }}
+              ></div>
+            </Box>
+            <Box>
+              <div
+                style={{
+                  height: "20em",
+                  width: "20em",
+                }}
+              ></div>
+            </Box>
+          </Reel>
+        </Box>
+      </Center>
     </div>
   );
 };
