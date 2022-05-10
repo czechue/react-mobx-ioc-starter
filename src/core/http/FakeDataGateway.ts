@@ -7,5 +7,6 @@ export class FakeHttpGateway {
   @inject(Config)
   config!: Config;
 
+  // eslint-disable-next-line no-unused-vars
   get = async (path: string) => {};
 }

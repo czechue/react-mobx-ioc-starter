@@ -21,9 +21,9 @@ export class NavigationTree {
       text: "Root Link",
       children: [
         {
-          id: "homeLink",
+          id: "everyLayoutLink",
           type: "link",
-          text: "HOME Link",
+          text: "Every Layouts List",
         },
         {
           id: "faqLink",

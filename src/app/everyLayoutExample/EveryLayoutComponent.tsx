@@ -16,7 +16,7 @@ import {
 import Cover from "../../components/layouts/components/Cover";
 import { theme } from "../../core/styles/theme";
 
-export const DomainComponent = () => {
+export const EveryLayoutComponent = () => {
   const { space } = useTheme();
 
   return (

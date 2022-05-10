@@ -6,7 +6,7 @@ import { useInject } from "../core/di";
 import { Header } from "../core/navigation/Header/Header";
 import { InjectableProps } from "../libs/reactDI";
 import { AppPresenter } from "./AppPresenter";
-import { DomainComponent } from "./domain/DomainComponent";
+import { EveryLayoutComponent } from "./everyLayoutExample/EveryLayoutComponent";
 
 const services: InjectableProps<{
   presenter: AppPresenter;
@@ -27,10 +27,10 @@ export const AppComponent = observer(() => {
       component: <div key="rootLink">root component</div>,
     },
     {
-      id: "homeLink",
+      id: "everyLayoutLink",
       component: (
-        <div key="homeLink">
-          <DomainComponent />
+        <div key="everyLayoutLink">
+          <EveryLayoutComponent />
         </div>
       ),
     },

@@ -101,6 +101,7 @@ export function createInjection(defaultContainer?: Container) {
      */
     injectComponent<TInject, TStateMap = {}>(
       inject: InjectableProps<TInject>,
+      // eslint-disable-next-line no-unused-vars
       stateMapper?: (injected: TInject) => TStateMap
     ) {
       type RemoveInjectedProps<TBase> = Omit<

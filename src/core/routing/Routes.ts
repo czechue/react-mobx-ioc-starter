@@ -21,9 +21,9 @@ export class Routes {
       },
     },
     {
-      routeId: "homeLink",
+      routeId: "everyLayoutLink",
       routeDef: {
-        path: "/home",
+        path: "/every-layout",
         isSecure: false,
       },
       onEnter: () => {
