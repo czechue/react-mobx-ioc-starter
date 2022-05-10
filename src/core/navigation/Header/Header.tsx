@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import React from "react";
 
-import { InjectableProps } from "../../../libs/reactDI";
+import { InjectableProps } from "../../../libs/react-di";
 import { useInject } from "../../di";
 import { Router } from "../../routing/Router";
 import { RoutingState } from "../../routing/RoutingState";

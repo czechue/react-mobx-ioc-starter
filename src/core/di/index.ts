@@ -1,4 +1,4 @@
-import { createInjection } from "../../libs/reactDI";
+import { createInjection } from "../../libs/react-di";
 
 export { container } from "./ioc";
 

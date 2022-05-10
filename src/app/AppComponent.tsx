@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useInject } from "../core/di";
 import { Header } from "../core/navigation/Header/Header";
-import { InjectableProps } from "../libs/reactDI";
+import { InjectableProps } from "../libs/react-di";
 import { AppPresenter } from "./AppPresenter";
 import { EveryLayoutComponent } from "./everyLayoutExample/EveryLayoutComponent";
 
