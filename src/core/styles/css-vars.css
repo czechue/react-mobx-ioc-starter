@@ -1,7 +1,22 @@
+@font-face {
+  font-family: Barlow Condensed;
+  src: url(/fonts/BarlowCondensed-Bold.woff2) format("woff2"),url(/fonts/BarlowCondensed-Bold.woff) format("woff");
+  font-weight: 700;
+  font-style: normal
+}
+
 :root {
+  --font-plain: Helvetica Neue,Helvetica,Arial,sans-serif;
+  --font-serif: Georgia,serif;
+  --font-special: Barlow Condensed,Helvetica,sans-serif;
+  --font-mono: Menlo,Courier,Courier New,Andale Mono,monospace;
+
+  --ratio: 1.4;
+
   --measure-1: calc(var(--measure) / var(--ratio));
-  --measure: 60ch;
-  --ratio: 1.5;
+  --measure: 65ch;
+  --measure1: calc(var(--measure) * var(--ratio));
+
   --s-5: calc(var(--s-4) / var(--ratio));
   --s-4: calc(var(--s-3) / var(--ratio));
   --s-3: calc(var(--s-2) / var(--ratio));
@@ -14,6 +29,12 @@
   --s4: calc(var(--s3) * var(--ratio));
   --s5: calc(var(--s4) * var(--ratio));
 
+  --color-dark: #050505;
+  --color-darkish: #404040;
+  --color-lightish: #e6e6e6;
+  --color-light: #fafafa;
+  --color-mid: grey;
+
   --primary: #ab47bc;
   --primaryLight: #df78ef;
   --primaryDark: #790e8b;
@@ -23,11 +44,49 @@
   --secondaryDark: #006978;
   --secondaryText: #000000;
 
-  --border-thin: 1px;
+  --line-height: var(--ratio);
+  --line-height-small: calc(0.8*var(--ratio));
+  --border-thin: var(--s-5);
+  --border-thick: var(--s-2);
 
-  color: var(--secondaryText);
+  line-height: var(--ratio);
+  font-size: calc(.333vw + 1em);
+  font-family: var(--font-plain);
+  background-color: var(--color-light);
+  color: var(--color-dark)
 }
 
-* {
+*,:after,:before {
   box-sizing: border-box;
+  background-color: inherit;
+  font-family: inherit;
+  color: inherit;
+  overflow-wrap: break-word;
+  margin: 0;
+  padding: 0;
+  border: 0 solid
+}
+
+
+h1,h2,h3,h4 {
+  line-height: var(--line-height-small);
+  font-family: var(--font-special);
+  font-weight: 700;
+  hyphens: auto
+}
+
+.h1,h1 {
+  font-size: var(--s4)
+}
+
+.h2,h2 {
+  font-size: var(--s3)
+}
+
+.h3,h3 {
+  font-size: var(--s2)
+}
+
+.h4,h4 {
+  font-size: var(--s1)
 }

@@ -42,16 +42,10 @@ export const AppComponent = observer(() => {
 
   return (
     <div>
-      <div>
-        <div>
-          <Header />
-        </div>
-        <div>
-          {renderedComponents.map((current) => {
-            return presenter.currentRouteId === current.id && current.component;
-          })}
-        </div>
-      </div>
+      <Header />
+      {renderedComponents.map((current) => {
+        return presenter.currentRouteId === current.id && current.component;
+      })}
     </div>
   );
 });
