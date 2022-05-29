@@ -13,7 +13,7 @@ const services: InjectableProps<{
   presenter: AppPresenter,
 };
 
-export const MessagesComp = observer(() => {
+export const MessagesComponent = observer(() => {
   const { presenter } = useInject(services);
   let { clientValidationMessages: uiMessages } = useValidation();
 

@@ -2,11 +2,7 @@ import "reflect-metadata";
 
 import { Container } from "inversify";
 
-import { HttpGateway } from "./Core/Http/DataGateway";
-import { Types } from "./Core/Types";
-import { createInjection } from "./libs/react-di";
 import { Router } from "./Routing/Router";
-import { RouterGateway } from "./Routing/RouterGateway";
 import { RoutingState } from "./Routing/RoutingState";
 
 export class BaseIOC {

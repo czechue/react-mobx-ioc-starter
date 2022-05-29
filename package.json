@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "test": "jest",
     "preview": "vite preview",
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
@@ -25,6 +26,7 @@
     "tree-model": "1.0.7"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
     "@types/styled-components": "5.1.25",
@@ -39,8 +41,12 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "pre-commit": "1.2.2",
     "prettier": "2.5.1",
+    "ts-jest": "^28.0.3",
     "typescript": "4.6.3",
     "vite": "2.9.5",
     "vite-tsconfig-paths": "3.3.17"
