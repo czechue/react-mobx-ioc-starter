@@ -7,7 +7,6 @@ import { useInject } from "./Core/Providers/Injection";
 import { useValidation } from "./Core/Providers/Validation";
 import { EveryLayoutComponent } from "./ExampleComponents/EveryLayoutComponent";
 import { InjectableProps } from "./libs/react-di";
-import { NavigationComponent } from "./Navigation/NavigationComponent";
 
 const services: InjectableProps<{
   presenter: AppPresenter;
@@ -53,7 +52,7 @@ export const AppComponent = observer(() => {
         <LoginRegisterComponent />
       ) : (
         <>
-          <NavigationComponent />{" "}
+          {" "}
           {renderedComponents.map((current) => {
             return (
               presenter.currentRoute.routeId === current.id && current.component

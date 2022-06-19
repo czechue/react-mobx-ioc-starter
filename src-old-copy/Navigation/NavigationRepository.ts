@@ -2,13 +2,13 @@ import { inject, injectable } from "inversify";
 import { action, computed, makeObservable } from "mobx";
 import TreeModel from "tree-model";
 
-import { AuthenticationRepository } from "../Authentication/AuthenticationRepository";
+import { AuthRepository } from "../Authentication/AuthRepository";
 import { Router } from "../Routing/Router";
 
 @injectable()
 export class NavigationRepository {
-  @inject(AuthenticationRepository)
-  authenticationRepository!: AuthenticationRepository;
+  @inject(AuthRepository)
+  authenticationRepository!: AuthRepository;
 
   @inject(Router)
   router!: Router;
@@ -30,12 +30,14 @@ export class NavigationRepository {
   getTree() {
     let tree = new TreeModel();
 
-    return tree.parse({
+    let root = tree.parse({
       id: "homeLink",
       type: "root",
       text: "Home",
       children: [],
     });
+
+    return root;
   }
 
   back = () => {

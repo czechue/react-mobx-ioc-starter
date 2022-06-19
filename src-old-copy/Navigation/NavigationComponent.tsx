@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { LogoutComponent } from "../Authentication/LogoutComponent";
+import { LogoutComp } from "../Authentication/Logout";
 import { useInject } from "../Core/Providers/Injection";
 import { InjectableProps } from "../libs/react-di";
 import { Router } from "../Routing/Router";
@@ -15,7 +15,7 @@ const services: InjectableProps<{
   routerPresenter: Router,
 };
 
-export const NavigationComponent = observer(() => {
+export const NavigationComp = observer(() => {
   const { navigationPresenter, routerPresenter } = useInject(services);
   return (
     <div className="navigation-container">
@@ -60,7 +60,7 @@ export const NavigationComponent = observer(() => {
           <span>⬅ </span>Back
         </div>
       )}
-      <LogoutComponent />
+      <LogoutComp />
     </div>
   );
 });

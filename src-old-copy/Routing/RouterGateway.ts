@@ -5,18 +5,17 @@ export type RouteConfig = Record<string, { as: string; uses: Handler }>;
 
 @injectable()
 export class RouterGateway {
-  private navigo!: Navigo;
+  navigo!: Navigo;
 
-  // @ts-ignore
-  registerRoutes = async (routeConfig) => {
+  registerRoutes = async (routeConfig: RouteConfig) => {
+    console.log();
     if (this.navigo) return new Promise((resolve) => setTimeout(resolve, 0));
-    this.navigo = new Navigo("/");
-    let self = this.navigo;
-    self
+
+    this.navigo = new Navigo("/", { hash: false });
+    this.navigo
       .on(routeConfig)
       .notFound(() => {})
       .resolve();
-
     return new Promise((resolve) => setTimeout(resolve, 0));
   };
 
@@ -24,8 +23,7 @@ export class RouterGateway {
     this.navigo.destroy();
   };
 
-  // @ts-ignore
-  goToId = async (name, queryString) => {
+  goToId = async (name: string, queryString: string) => {
     this.navigo.navigateByName(name, queryString);
   };
 }

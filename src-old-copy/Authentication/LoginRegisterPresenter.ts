@@ -3,19 +3,19 @@ import { action, makeObservable, observable } from "mobx";
 
 import { MessagesPresenter } from "../Core/Messages/MessagesPresenter";
 import { Router } from "../Routing/Router";
-import { AuthenticationRepository } from "./AuthenticationRepository";
+import { AuthRepository } from "./AuthRepository";
 
 @injectable()
 export class LoginRegisterPresenter extends MessagesPresenter {
-  @inject(AuthenticationRepository)
-  authenticationRepository!: AuthenticationRepository;
+  @inject(AuthRepository)
+  authenticationRepository!: AuthRepository;
 
   @inject(Router)
   router!: Router;
 
   email = "";
   password = "";
-  option: "login" | "register" = "login";
+  option?: "login" | "register" = undefined;
 
   constructor() {
     super();

@@ -1,5 +1,5 @@
 import { BaseIOC } from "./BaseIOC";
-import { HttpGateway } from "./Core/Http/HttpGateway";
+import { HttpGateway } from "./Core/Http/DataGateway";
 import { Types } from "./Core/Types";
 import { RouterGateway } from "./Routing/RouterGateway";
 

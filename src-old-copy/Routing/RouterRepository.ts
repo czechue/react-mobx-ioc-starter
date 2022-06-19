@@ -2,24 +2,21 @@ import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
 
 import { Types } from "../Core/Types";
-import { RouterGateway } from "./RouterGateway";
+import { RouteConfig, RouterGateway } from "./RouterGateway";
 
 @injectable()
 export class RouterRepository {
-  currentRoute = {
-    routeId: "",
-    routeDef: {
-      path: "",
-      isSecure: false,
-    },
-    params: "",
-    query: "",
+  currentRoute: any = {
+    routeId: null,
+    routeDef: null,
+    params: null,
+    query: null,
   };
 
   @inject(Types.IRouterGateway)
   routerGateway!: RouterGateway;
 
-  onRouteChanged = () => console.log("route changed");
+  onRouteChanged = null;
 
   routes = [
     {
@@ -66,21 +63,20 @@ export class RouterRepository {
     });
   }
 
-  // @ts-ignore
-  registerRoutes = (updateCurrentRoute, onRouteChanged) => {
+  registerRoutes = (updateCurrentRoute: any, onRouteChanged: any) => {
     this.onRouteChanged = onRouteChanged;
-    let routeConfig = {};
+    let routeConfig: RouteConfig = {};
     this.routes.forEach((routeArg) => {
       const route = this.findRoute(routeArg.routeId);
-      // @ts-ignore
       routeConfig[route.routeDef.path] = {
         as: route.routeId,
-        uses: (match: { queryString: any }) => {
-          updateCurrentRoute(
+        uses: (match) => {
+          console.log(match);
+          return updateCurrentRoute(
             route.routeId,
             route.routeDef,
             {},
-            match.queryString
+            match?.queryString
           );
         },
       };
@@ -89,16 +85,21 @@ export class RouterRepository {
     this.routerGateway.registerRoutes(routeConfig);
   };
 
-  // @ts-ignore
-  findRoute(routeId) {
+  findRoute(routeId?: string | null) {
     const route = this.routes.find((route) => {
       return route.routeId === routeId;
     });
-    return route || { routeId: "loadingSpinner", routeDef: { path: "" } };
+    return (
+      route || {
+        routeId: "loadingSpinner",
+        routeDef: { path: "", isSecure: false },
+        onEnter: null,
+        onLeave: null,
+      }
+    );
   }
 
-  // @ts-ignore
-  goToId = async (routeId) => {
-    this.routerGateway.goToId(routeId, "");
+  goToId = async (routeId: string, queryString: string) => {
+    this.routerGateway.goToId(routeId, queryString);
   };
 }
