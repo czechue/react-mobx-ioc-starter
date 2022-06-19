@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components";
 import { AppComponent } from "./AppComponent";
 import { container } from "./AppIOC";
 import { InjectionProvider } from "./Core/Providers/Injection";
+import { ValidationProvider } from "./Core/Providers/Validation";
 import { theme } from "./styles/theme";
 
 configure({
@@ -25,9 +26,11 @@ const root = createRoot(domContainer!);
 root.render(
   <React.StrictMode>
     <InjectionProvider container={container}>
-      <ThemeProvider theme={theme}>
-        <AppComponent />
-      </ThemeProvider>
+      <ValidationProvider>
+        <ThemeProvider theme={theme}>
+          <AppComponent />
+        </ThemeProvider>
+      </ValidationProvider>
     </InjectionProvider>
   </React.StrictMode>
 );

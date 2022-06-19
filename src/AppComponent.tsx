@@ -1,12 +1,12 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { useEffect } from "react";
 
 import { AppPresenter } from "./AppPresenter";
+import { LoginRegisterComponent } from "./Authentication/LoginRegisterComponent";
 import { useInject } from "./Core/Providers/Injection";
+import { useValidation } from "./Core/Providers/Validation";
 import { EveryLayoutComponent } from "./ExampleComponents/EveryLayoutComponent";
 import { InjectableProps } from "./libs/react-di";
-import { Header } from "./Navigation/Header/Header";
 
 const services: InjectableProps<{
   presenter: AppPresenter;
@@ -17,9 +17,15 @@ const services: InjectableProps<{
 export const AppComponent = observer(() => {
   const { presenter } = useInject(services);
 
-  useEffect(() => {
-    presenter.bootstrap();
-  }, [presenter]);
+  const { updateClientValidationMessages } = useValidation();
+
+  React.useEffect(() => {
+    presenter.load(onRouteChange);
+  }, []);
+
+  const onRouteChange = () => {
+    updateClientValidationMessages([]);
+  };
 
   const renderedComponents = [
     {
@@ -42,10 +48,18 @@ export const AppComponent = observer(() => {
 
   return (
     <div>
-      <Header />
-      {renderedComponents.map((current) => {
-        return presenter.currentRouteId === current.id && current.component;
-      })}
+      {presenter.currentRoute.routeId === "loginLink" ? (
+        <LoginRegisterComponent />
+      ) : (
+        <>
+          {" "}
+          {renderedComponents.map((current) => {
+            return (
+              presenter.currentRoute.routeId === current.id && current.component
+            );
+          })}
+        </>
+      )}
     </div>
   );
 });

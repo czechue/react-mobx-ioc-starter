@@ -1,54 +1,71 @@
 import { inject, injectable } from "inversify";
-import { computed, makeObservable } from "mobx";
+import { action, computed, makeObservable } from "mobx";
 
-import { Types } from "../Core/Types";
-import { RouterGateway } from "./RouterGateway";
-import { RouteRegistrar } from "./RouterRegistrar";
-import { Routes } from "./Routes";
-import { RouteUpdater } from "./RouteUpdater";
-import { RoutingState } from "./RoutingState";
+import { UserModel } from "../Authentication/UserModel";
+import { MessagesRepository } from "../Core/Messages/MessagesRepository";
+import { RouterRepository } from "./RouterRepository";
 
 @injectable()
 export class Router {
-  @inject(RouteRegistrar)
-  routeRegistrar!: RouteRegistrar;
+  @inject(RouterRepository)
+  routerRepository!: RouterRepository;
 
-  @inject(RouteUpdater)
-  routeUpdater!: RouteUpdater;
+  @inject(UserModel)
+  userModel!: UserModel;
 
-  @inject(Routes)
-  routes!: Routes;
+  @inject(MessagesRepository)
+  messagesRepository!: MessagesRepository;
 
-  @inject(Types.IRouterGateway)
-  routerGateway!: RouterGateway;
-
-  @inject(RoutingState)
-  routingState!: RoutingState;
+  get currentRoute() {
+    return this.routerRepository.currentRoute;
+  }
 
   constructor() {
     makeObservable(this, {
-      currentRouteId: computed,
+      currentRoute: computed,
+      updateCurrentRoute: action,
     });
   }
 
-  get currentRouteId() {
-    return this.routingState.currentState.routeId;
-  }
+  updateCurrentRoute = async (
+    newRouteId: string,
+    params: any,
+    query: string
+  ) => {
+    let oldRoute = this.routerRepository.findRoute(this.currentRoute.routeId);
+    let newRoute = this.routerRepository.findRoute(newRouteId);
+    const hasToken = !!this.userModel.token;
+    const routeChanged = oldRoute.routeId !== newRoute.routeId;
+    const protectedOrUnauthenticatedRoute =
+      (newRoute.routeDef.isSecure && !hasToken) ||
+      newRoute.routeDef.path === "*";
+    const publicOrAuthenticatedRoute =
+      (newRoute.routeDef.isSecure && hasToken) || !newRoute.routeDef.isSecure;
 
-  registerRoutes = () => {
-    let routeConfig: any = this.routeRegistrar.extractRoutes(
-      this.routes.routes
-    );
-    this.routerGateway.registerRoutes(routeConfig);
+    if (routeChanged) {
+      // this.routerRepository.onRouteChanged?();
+
+      if (protectedOrUnauthenticatedRoute) {
+        this.routerRepository.goToId("loginLink", query);
+      } else if (publicOrAuthenticatedRoute) {
+        if (oldRoute.onLeave) oldRoute.onLeave();
+        if (newRoute.onEnter) newRoute.onEnter();
+        this.routerRepository.currentRoute.routeId = newRoute.routeId;
+        this.routerRepository.currentRoute.routeDef = newRoute.routeDef;
+        this.routerRepository.currentRoute.params = params;
+        this.routerRepository.currentRoute.query = query;
+      }
+    }
   };
 
-  goToId = async (routeId: string, params?: string, query?: string) => {
-    let routePath = this.routeUpdater.findRoute(routeId).routeDef.path;
+  registerRoutes = (onRouteChange: any) => {
+    this.routerRepository.registerRoutes(
+      this.updateCurrentRoute,
+      onRouteChange
+    );
+  };
 
-    if (query) {
-      routePath = routePath + "?" + query;
-    }
-
-    await this.routerGateway.goToPath(routePath);
+  goToId = async (routeId: string, query: string) => {
+    await this.routerRepository.goToId(routeId, query);
   };
 }

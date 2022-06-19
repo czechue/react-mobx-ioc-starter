@@ -3,7 +3,6 @@ import "reflect-metadata";
 import { Container } from "inversify";
 
 import { Router } from "./Routing/Router";
-import { RoutingState } from "./Routing/RoutingState";
 
 export class BaseIOC {
   private container: Container;
@@ -16,7 +15,6 @@ export class BaseIOC {
   }
 
   public build(): Container {
-    this.container.bind(RoutingState).to(RoutingState).inSingletonScope();
     this.container.bind(Router).to(Router).inSingletonScope();
     return this.container;
   }

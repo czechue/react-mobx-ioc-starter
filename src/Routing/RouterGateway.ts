@@ -1,14 +1,17 @@
 import { injectable } from "inversify";
 import Navigo, { Handler } from "navigo";
 
+export type RouteConfig = Record<string, { as: string; uses: Handler }>;
+
 @injectable()
 export class RouterGateway {
   navigo!: Navigo;
 
-  registerRoutes = async (routeConfig: Handler) => {
+  registerRoutes = async (routeConfig: RouteConfig) => {
+    console.log();
     if (this.navigo) return new Promise((resolve) => setTimeout(resolve, 0));
-    let root = "";
-    this.navigo = new Navigo(root, { hash: false });
+
+    this.navigo = new Navigo("/", { hash: false });
     this.navigo
       .on(routeConfig)
       .notFound(() => {})
@@ -20,7 +23,7 @@ export class RouterGateway {
     this.navigo.destroy();
   };
 
-  goToPath = async (pathname: string) => {
-    this.navigo.navigate(pathname);
+  goToId = async (name: string, queryString: string) => {
+    this.navigo.navigateByName(name, queryString);
   };
 }

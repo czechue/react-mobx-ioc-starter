@@ -46,7 +46,7 @@ export class LoginRegisterPresenter extends MessagesPresenter {
     this.unpackRepositoryPmToVm(loginPm, "User logged in");
 
     if (loginPm.success) {
-      await this.router.goToId("homeLink");
+      await this.router.goToId("homeLink", "");
     }
   };
 
@@ -61,6 +61,6 @@ export class LoginRegisterPresenter extends MessagesPresenter {
 
   logOut = async () => {
     await this.authenticationRepository.logOut();
-    await this.router.goToId("loginLink");
+    await this.router.goToId("loginLink", "");
   };
 }

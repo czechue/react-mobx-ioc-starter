@@ -1,69 +1,56 @@
 import { inject, injectable } from "inversify";
 import { computed, makeObservable } from "mobx";
-import TreeModel from "tree-model";
 
-import { Router } from "../Routing/Router";
-import { AppNavigationModel, NavigationTree } from "./NavigationTree";
+import { RouterRepository } from "../Routing/RouterRepository";
+import { NavigationRepository } from "./NavigationRepository";
 
 @injectable()
 export class NavigationPresenter {
-  @inject(NavigationTree)
-  navigationTree!: NavigationTree;
+  @inject(NavigationRepository)
+  navigationRepository!: NavigationRepository;
 
-  @inject(Router)
-  router!: Router;
+  @inject(RouterRepository)
+  routerRepository!: RouterRepository;
+
+  get viewModel() {
+    const vm = {
+      showBack: false,
+      currentSelectedVisibleName: "",
+      currentSelectedBackTarget: { visible: false, id: null },
+      menuItems: [],
+    };
+
+    let currentNode = this.navigationRepository.currentNode;
+
+    if (currentNode) {
+      vm.currentSelectedVisibleName = this.visibleName(currentNode);
+      vm.menuItems = currentNode.children.map((node: any) => {
+        return { id: node.model.id, visibleName: node.model.text };
+      });
+
+      if (currentNode.parent) {
+        vm.currentSelectedBackTarget = {
+          visible: true,
+          id: currentNode.parent.model.id,
+        };
+        vm.showBack = true;
+      }
+    }
+
+    return vm;
+  }
 
   constructor() {
     makeObservable(this, {
-      currentSelectedNavigationNode: computed,
-      currentBackTarget: computed,
-      isTop: computed,
+      viewModel: computed,
     });
   }
 
-  get currentSelectedNavigationNode() {
-    if (!this.findCurrentNode()) {
-      return undefined;
-    }
-
-    return this.findCurrentNode()["model"].id;
-  }
-
-  get currentBackTarget() {
-    if (!this.findCurrentNode()) {
-      return undefined;
-    }
-
-    if (this.findCurrentNode()["parent"]) {
-      return {
-        enabled: true,
-        target: this.findCurrentNode()["parent"]["model"].id,
-      };
-    }
-
-    return { enabled: false, target: null };
-  }
-
-  get isTop() {
-    return !this.findCurrentNode()["parent"];
-  }
-
-  viewModel = () => {
-    return this.navigationTree.getTree();
+  visibleName = (node: any) => {
+    return node.model.text + " > " + node.model.id;
   };
 
-  backToTop = () => {
-    let parent = this.findCurrentNode();
-    do {
-      parent = parent["parent"];
-    } while (parent["model"].type !== "root");
-
-    this.router.goToId(parent["model"].id);
-  };
-
-  findCurrentNode = (): TreeModel.Node<AppNavigationModel> => {
-    return this.viewModel().all((node) => {
-      return node["model"].id === this.router.currentRouteId;
-    })[0];
+  back = () => {
+    this.navigationRepository.back();
   };
 }
