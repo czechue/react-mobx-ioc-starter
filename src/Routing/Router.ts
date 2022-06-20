@@ -27,34 +27,32 @@ export class Router {
     });
   }
 
-  // @ts-ignore
-  updateCurrentRoute = async (newRouteId, params, query) => {
+  // todo: FIX these types
+  updateCurrentRoute = async (
+    newRouteId: string,
+    params: string,
+    query: string
+  ) => {
     let oldRoute = this.routerRepository.findRoute(this.currentRoute.routeId);
     let newRoute = this.routerRepository.findRoute(newRouteId);
     const hasToken = !!this.userModel.token;
     const routeChanged = oldRoute.routeId !== newRoute.routeId;
     const protectedOrUnauthenticatedRoute =
-      // @ts-ignore
-      (newRoute.routeDef.isSecure && hasToken === false) ||
+      (newRoute.routeDef.isSecure && !hasToken) ||
       newRoute.routeDef.path === "*";
     const publicOrAuthenticatedRoute =
-      // @ts-ignore
-      (newRoute.routeDef.isSecure && hasToken === true) ||
-      // @ts-ignore
-      newRoute.routeDef.isSecure === false;
+      (newRoute.routeDef.isSecure && hasToken) || !newRoute.routeDef.isSecure;
 
     if (routeChanged) {
       this.routerRepository.onRouteChanged();
 
       if (protectedOrUnauthenticatedRoute) {
-        this.routerRepository.goToId("loginLink");
+        this.routerRepository.goToId("loginLink", "");
       } else if (publicOrAuthenticatedRoute) {
-        // @ts-ignore
         if (oldRoute.onLeave) oldRoute.onLeave();
-        // @ts-ignore
         if (newRoute.onEnter) newRoute.onEnter();
+
         this.routerRepository.currentRoute.routeId = newRoute.routeId;
-        // @ts-ignore
         this.routerRepository.currentRoute.routeDef = newRoute.routeDef;
         this.routerRepository.currentRoute.params = params;
         this.routerRepository.currentRoute.query = query;
@@ -62,16 +60,14 @@ export class Router {
     }
   };
 
-  // @ts-ignore
-  registerRoutes = (onRouteChange) => {
+  registerRoutes = (onRouteChange: () => void) => {
     this.routerRepository.registerRoutes(
       this.updateCurrentRoute,
       onRouteChange
     );
   };
 
-  // @ts-ignore
-  goToId = async (routeId) => {
-    this.routerRepository.goToId(routeId);
+  goToId = async (routeId: string, queryString?: string) => {
+    await this.routerRepository.goToId(routeId, queryString);
   };
 }

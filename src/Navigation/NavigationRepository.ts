@@ -40,6 +40,6 @@ export class NavigationRepository {
 
   back = () => {
     let currentNode = this.currentNode;
-    this.router.goToId(currentNode.parent.model.id, "");
+    this.router.goToId(currentNode.parent.model.id);
   };
 }

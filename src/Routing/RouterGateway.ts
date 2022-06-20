@@ -24,8 +24,7 @@ export class RouterGateway {
     this.navigo.destroy();
   };
 
-  // @ts-ignore
-  goToId = async (name, queryString) => {
+  goToId = async (name: string, queryString?: string) => {
     this.navigo.navigateByName(name, queryString);
   };
 }

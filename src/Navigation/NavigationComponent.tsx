@@ -17,6 +17,9 @@ const services: InjectableProps<{
 
 export const NavigationComponent = observer(() => {
   const { navigationPresenter, routerPresenter } = useInject(services);
+
+  console.log("NavigationComponent");
+
   return (
     <div className="navigation-container">
       <div
@@ -38,7 +41,7 @@ export const NavigationComponent = observer(() => {
                 backgroundColor: "#3DE7CF",
               }}
               onClick={() => {
-                routerPresenter.goToId(menuItem.id, "");
+                routerPresenter.goToId(menuItem.id);
               }}
             >
               {menuItem.visibleName}

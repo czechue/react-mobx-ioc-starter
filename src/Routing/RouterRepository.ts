@@ -4,6 +4,16 @@ import { makeObservable, observable } from "mobx";
 import { Types } from "../Core/Types";
 import { RouterGateway } from "./RouterGateway";
 
+type Route = {
+  routeId: string;
+  routeDef: {
+    path: string;
+    isSecure: boolean;
+  };
+  onEnter?: () => void;
+  onLeave?: () => void;
+};
+
 @injectable()
 export class RouterRepository {
   currentRoute = {
@@ -21,15 +31,15 @@ export class RouterRepository {
 
   onRouteChanged = () => console.log("route changed");
 
-  routes = [
+  routes: Route[] = [
     {
       routeId: "rootLink",
       routeDef: {
         path: "/",
         isSecure: false,
       },
-      onEnter: () => {},
-      onLeave: () => {},
+      onEnter: undefined,
+      onLeave: undefined,
     },
     {
       routeId: "everyLayoutLink",
@@ -37,8 +47,8 @@ export class RouterRepository {
         path: "/every-layout",
         isSecure: false,
       },
-      onEnter: () => {},
-      onLeave: () => {},
+      onEnter: undefined,
+      onLeave: undefined,
     },
     {
       routeId: "loginLink",
@@ -46,8 +56,8 @@ export class RouterRepository {
         path: "/app/login",
         isSecure: false,
       },
-      onEnter: () => {},
-      onLeave: () => {},
+      onEnter: undefined,
+      onLeave: undefined,
     },
     {
       routeId: "default",
@@ -55,8 +65,8 @@ export class RouterRepository {
         path: "*",
         isSecure: false,
       },
-      onEnter: () => {},
-      onLeave: () => {},
+      onEnter: undefined,
+      onLeave: undefined,
     },
   ];
 
@@ -69,10 +79,10 @@ export class RouterRepository {
   // @ts-ignore
   registerRoutes = (updateCurrentRoute, onRouteChanged) => {
     this.onRouteChanged = onRouteChanged;
-    let routeConfig = {};
+    let routeConfig: Record<string, any> = {};
     this.routes.forEach((routeArg) => {
       const route = this.findRoute(routeArg.routeId);
-      // @ts-ignore
+
       routeConfig[route.routeDef.path] = {
         as: route.routeId,
         uses: (match: { queryString: any }) => {
@@ -89,16 +99,22 @@ export class RouterRepository {
     this.routerGateway.registerRoutes(routeConfig);
   };
 
-  // @ts-ignore
-  findRoute(routeId) {
+  findRoute(routeId: string): Route {
     const route = this.routes.find((route) => {
       return route.routeId === routeId;
     });
-    return route || { routeId: "loadingSpinner", routeDef: { path: "" } };
+
+    return (
+      route || {
+        routeId: "loadingSpinner",
+        routeDef: { path: "", isSecure: false },
+        onLeave: undefined,
+        onEnter: undefined,
+      }
+    );
   }
 
-  // @ts-ignore
-  goToId = async (routeId) => {
-    this.routerGateway.goToId(routeId, "");
+  goToId = async (routeId: string, queryString?: string) => {
+    await this.routerGateway.goToId(routeId, queryString);
   };
 }

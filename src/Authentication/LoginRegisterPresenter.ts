@@ -60,6 +60,7 @@ export class LoginRegisterPresenter extends MessagesPresenter {
   };
 
   logOut = async () => {
+    console.log("1");
     await this.authenticationRepository.logOut();
     await this.router.goToId("loginLink", "");
   };

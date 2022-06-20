@@ -16,6 +16,8 @@ export const LoginRegisterComponent = observer(() => {
   const { presenter } = useInject(services);
   const formValid = () => true;
 
+  console.log("LoginRegisterComponent");
+
   return (
     <div className="login-register">
       <div className="w3-row">
