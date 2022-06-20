@@ -14,6 +14,7 @@ const services: InjectableProps<{
 
 export const LoginRegisterComponent = observer(() => {
   const { presenter } = useInject(services);
+
   const formValid = () => true;
 
   console.log("LoginRegisterComponent");

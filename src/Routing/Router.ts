@@ -27,7 +27,7 @@ export class Router {
     });
   }
 
-  // todo: FIX these types
+  // todo: FIX these types later on
   updateCurrentRoute = async (
     newRouteId: string,
     params: string,
