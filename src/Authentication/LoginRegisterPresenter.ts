@@ -28,7 +28,7 @@ export class LoginRegisterPresenter extends MessagesPresenter {
       register: action,
       logOut: action,
     });
-    this.init();
+    this.initMessages();
   }
 
   reset = () => {
@@ -60,7 +60,6 @@ export class LoginRegisterPresenter extends MessagesPresenter {
   };
 
   logOut = async () => {
-    console.log("1");
     await this.authenticationRepository.logOut();
     await this.router.goToId("loginLink", "");
   };

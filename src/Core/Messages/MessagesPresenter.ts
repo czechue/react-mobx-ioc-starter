@@ -22,7 +22,7 @@ export class MessagesPresenter {
     });
   }
 
-  init = () => {
+  initMessages = () => {
     this.showValidationWarning = false;
     // this.reset();
   };
