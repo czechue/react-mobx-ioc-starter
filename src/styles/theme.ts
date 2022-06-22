@@ -18,6 +18,7 @@ const theme: DefaultTheme = {
     s5: "var(--s5)",
   },
   color: {
+    dark: "var(--color-dark)",
     primary: "var(--primary)",
     primaryLight: "var(--primaryLight)",
     primaryDark: "var(--primaryDark)",

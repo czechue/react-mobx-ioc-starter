@@ -1,9 +1,13 @@
 import { observer } from "mobx-react";
 import * as React from "react";
+import { useTheme } from "styled-components";
 
+import { Box, Center, Stack } from "../Components/layouts";
 import { MessagesComponent } from "../Core/Messages/MessagesComponent";
 import { useInject } from "../Core/Providers/Injection";
 import { InjectableProps } from "../libs/react-di";
+import { LogicRoomLogo } from "./components/LogicRoomLogo";
+import * as S from "./LoginRegister.styled";
 import { LoginRegisterPresenter } from "./LoginRegisterPresenter";
 
 const services: InjectableProps<{
@@ -14,109 +18,76 @@ const services: InjectableProps<{
 
 export const LoginRegisterComponent = observer(() => {
   const { presenter } = useInject(services);
+  const { space, color } = useTheme();
+  const isLogin = presenter.option === "login";
 
   const formValid = () => true;
 
-  console.log("LoginRegisterComponent");
-
   return (
-    <div className="login-register">
-      <div className="w3-row">
-        <div className="w3-col s4 w3-center">
-          <br />
-        </div>
-        <div className="w3-col s4 w3-center logo">
-          <img
-            alt="logo"
-            style={{ width: 160, filter: "grayscale(100%)" }}
-            src="https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/themes/2147767979/settings_images/iE7LayVvSHeoYcZWO4Dq_web-logo-pink-light-bg3x.png"
-          />
-        </div>
-        <div className="w3-col s4 w3-center">
-          <br />
-        </div>
-      </div>
-      <div className="w3-row">
-        <div className="w3-col s4 w3-center">
-          <br />
-        </div>
-        <div className="w3-col s4 w3-center option">
-          <input
-            className="lr-submit"
-            style={{ backgroundColor: "#e4257d" }}
-            type="submit"
-            value="login"
+    <Center gutters={space.s3}>
+      <Stack>
+        <LogicRoomLogo />
+        <div>
+          <S.Button
+            style={{ background: color.primaryLight }}
             onClick={() => {
               presenter.option = "login";
             }}
-          />
-          <input
-            className="lr-submit"
-            style={{ backgroundColor: "#2E91FC" }}
-            type="submit"
-            value="register"
+          >
+            Login
+          </S.Button>
+          <S.Button
+            style={{ background: color.secondaryLight }}
             onClick={() => {
               presenter.option = "register";
             }}
-          />
+          >
+            Register
+          </S.Button>
         </div>
-        <div className="w3-col s4 w3-center">
-          <br />
-        </div>
-      </div>
-      <div
-        className="w3-row"
-        style={{
-          backgroundColor: presenter.option === "login" ? "#E4257D" : "#2E91FC",
-          height: 100,
-          paddingTop: 20,
-        }}
-      >
-        <form
-          className="login"
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (formValid()) {
-              if (presenter.option === "login") presenter.login();
-              if (presenter.option === "register") presenter.register();
-            }
+        <Box
+          padding={space.s1}
+          style={{
+            backgroundColor: isLogin ? color.primary : color.secondary,
           }}
         >
-          <div className="w3-col s4 w3-center">
-            <input
+          <Stack>
+            <S.Input
               type="text"
+              style={{ background: "white" }}
               value={presenter.email}
               placeholder="Email"
               onChange={(event) => {
                 presenter.email = event.target.value;
               }}
             />
-          </div>
-          <div className="w3-col s4 w3-center">
-            {" "}
-            <input
+            <S.Input
               type="text"
+              style={{ background: "white" }}
               value={presenter.password}
               placeholder="Password"
               onChange={(event) => {
                 presenter.password = event.target.value;
               }}
             />
-          </div>
-          <div className="w3-col s4 w3-center">
-            <input
-              type="submit"
-              className="lr-submit"
-              value={presenter.option}
-            />
-          </div>
-
-          <br />
-          <br />
-          <br />
-        </form>
-      </div>
-      <MessagesComponent />
-    </div>
+            <form
+              className="login"
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (formValid()) {
+                  if (isLogin) presenter.login();
+                  if (!isLogin) presenter.register();
+                }
+              }}
+            >
+              <S.Button type="submit">
+                {isLogin ? "Log in" : "Sign Up"}
+              </S.Button>
+            </form>
+            <MessagesComponent />
+          </Stack>
+        </Box>
+      </Stack>
+    </Center>
   );
 });
