@@ -8,7 +8,7 @@ export class MessagesPresenter {
   @inject(MessagesRepository)
   messagesRepository!: MessagesRepository;
 
-  showValidationWarning: boolean | null = null;
+  showValidationWarning = false;
 
   get messages() {
     return this.messagesRepository.appMessages;
@@ -24,13 +24,15 @@ export class MessagesPresenter {
 
   initMessages = () => {
     this.showValidationWarning = false;
-    // this.reset();
+    // @ts-ignore
+    this.messagesRepository?.reset();
   };
 
   unpackRepositoryPmToVm = (
     pm: { success: boolean; serverMessage: string },
     userMessage: string
   ) => {
+    console.log("unpack", pm);
     this.showValidationWarning = !pm.success;
     this.messagesRepository.appMessages = pm.success
       ? [userMessage]

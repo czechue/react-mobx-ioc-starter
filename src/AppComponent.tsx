@@ -15,6 +15,8 @@ const services: InjectableProps<{
   presenter: AppPresenter,
 };
 
+const HomeComponent = () => <div> HomeComponent</div>;
+
 export const AppComponent = observer(() => {
   const { presenter } = useInject(services);
 
@@ -29,6 +31,10 @@ export const AppComponent = observer(() => {
   };
 
   const renderedComponents = [
+    {
+      id: "homeLink",
+      component: <HomeComponent key="homePage" />,
+    },
     {
       id: "rootLink",
       component: <div key="rootLink">root component</div>,

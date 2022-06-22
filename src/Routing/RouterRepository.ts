@@ -42,6 +42,15 @@ export class RouterRepository {
       onLeave: undefined,
     },
     {
+      routeId: "homeLink",
+      routeDef: {
+        path: "/app/home",
+        isSecure: true,
+      },
+      onEnter: undefined,
+      onLeave: undefined,
+    },
+    {
       routeId: "everyLayoutLink",
       routeDef: {
         path: "/every-layout",

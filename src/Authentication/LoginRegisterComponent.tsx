@@ -5,6 +5,7 @@ import { useTheme } from "styled-components";
 import { Box, Center, Stack } from "../Components/layouts";
 import { MessagesComponent } from "../Core/Messages/MessagesComponent";
 import { useInject } from "../Core/Providers/Injection";
+import { useValidation } from "../Core/Providers/Validation";
 import { InjectableProps } from "../libs/react-di";
 import { LogicRoomLogo } from "./components/LogicRoomLogo";
 import * as S from "./LoginRegister.styled";
@@ -17,16 +18,25 @@ const services: InjectableProps<{
 };
 
 export const LoginRegisterComponent = observer(() => {
+  const { updateClientValidationMessages } = useValidation();
   const { presenter } = useInject(services);
   const { space, color } = useTheme();
   const isLogin = presenter.option === "login";
 
-  const formValid = () => true;
+  let formValid = () => {
+    let clientValidationMessages = [];
+    if (presenter.email === "") clientValidationMessages.push("No email");
+    if (presenter.password === "") clientValidationMessages.push("No password");
+    updateClientValidationMessages(clientValidationMessages);
+    return clientValidationMessages.length === 0;
+  };
 
   return (
     <Center gutters={space.s3}>
       <Stack>
         <LogicRoomLogo />
+        <span>qwerty@abc.com | Test1234</span>
+
         <div>
           <S.Button
             style={{ background: color.primaryLight }}
