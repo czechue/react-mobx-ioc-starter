@@ -19,6 +19,7 @@ const theme: DefaultTheme = {
   },
   color: {
     dark: "var(--color-dark)",
+    light: "var(--color-light)",
     primary: "var(--primary)",
     primaryLight: "var(--primaryLight)",
     primaryDark: "var(--primaryDark)",

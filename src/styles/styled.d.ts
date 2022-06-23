@@ -23,6 +23,7 @@ declare module "styled-components" {
 
     color: {
       dark: string;
+      light: string;
       primary: string;
       primaryLight: string;
       primaryDark: string;

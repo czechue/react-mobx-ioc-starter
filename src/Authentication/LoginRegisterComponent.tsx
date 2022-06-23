@@ -61,41 +61,38 @@ export const LoginRegisterComponent = observer(() => {
             backgroundColor: isLogin ? color.primary : color.secondary,
           }}
         >
-          <Stack>
-            <S.Input
-              type="text"
-              style={{ background: "white" }}
-              value={presenter.email}
-              placeholder="Email"
-              onChange={(event) => {
-                presenter.email = event.target.value;
-              }}
-            />
-            <S.Input
-              type="text"
-              style={{ background: "white" }}
-              value={presenter.password}
-              placeholder="Password"
-              onChange={(event) => {
-                presenter.password = event.target.value;
-              }}
-            />
-            <form
-              className="login"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (formValid()) {
-                  if (isLogin) presenter.login();
-                  if (!isLogin) presenter.register();
-                }
-              }}
-            >
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (formValid()) {
+                if (isLogin) presenter.login();
+                if (!isLogin) presenter.register();
+              }
+            }}
+          >
+            <Stack>
+              <S.Input
+                type="text"
+                value={presenter.email}
+                placeholder="Email"
+                onChange={(event) => {
+                  presenter.email = event.target.value;
+                }}
+              />
+              <S.Input
+                type="text"
+                value={presenter.password}
+                placeholder="Password"
+                onChange={(event) => {
+                  presenter.password = event.target.value;
+                }}
+              />
               <S.Button type="submit">
                 {isLogin ? "Log in" : "Sign Up"}
               </S.Button>
-            </form>
-            <MessagesComponent />
-          </Stack>
+              <MessagesComponent />
+            </Stack>
+          </form>
         </Box>
       </Stack>
     </Center>

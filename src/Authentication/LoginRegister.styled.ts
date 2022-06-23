@@ -19,4 +19,5 @@ export const Input = styled.input`
   border-width: ${({ theme }) => theme.border.thin};
   border-radius: 0;
   padding: ${({ theme }) => theme.space.s_1};
+  background: ${({ theme }) => theme.color.light};
 `;
