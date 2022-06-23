@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { action, computed, makeObservable } from "mobx";
-import TreeModel from "tree-model";
+import * as TreeModel from "tree-model";
 
 import { AuthenticationRepository } from "../Authentication/AuthenticationRepository";
 import { Router } from "../Routing/Router";
@@ -34,7 +34,30 @@ export class NavigationRepository {
       id: "homeLink",
       type: "root",
       text: "Home",
-      children: [],
+      children: [
+        {
+          id: "booksLink",
+          type: "link",
+          text: "Books",
+        },
+        {
+          id: "authorsLink",
+          type: "link",
+          text: "Authors",
+          children: [
+            {
+              id: "authorsLink-authorPolicyLink",
+              type: "link",
+              text: "Author Policy",
+            },
+            {
+              id: "authorsLink-mapLink",
+              type: "link",
+              text: "View Map",
+            },
+          ],
+        },
+      ],
     });
   }
 

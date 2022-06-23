@@ -60,12 +60,12 @@ export class AppTestHarness {
   // 3. login or register to the app
   setupLogin = async (loginStub: any) => {
     this.dataGateway = this.container.get(Types.IHttpGateway);
-    /* eslint-disable */
-    this.dataGateway.get = jest.fn().mockImplementation((path: string) => {
+
+    this.dataGateway.get = jest.fn().mockImplementation(() => {
       return Promise.resolve(SingleBooksResultStub());
     });
-    /* eslint-disable */
-    this.dataGateway.post = jest.fn().mockImplementation((path: string) => {
+
+    this.dataGateway.post = jest.fn().mockImplementation(() => {
       return Promise.resolve(loginStub());
     });
 

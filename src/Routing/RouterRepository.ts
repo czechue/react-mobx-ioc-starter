@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
 
+import { BooksRepository } from "../Books/BooksRepository";
 import { Types } from "../Core/Types";
 import { RouterGateway } from "./RouterGateway";
 
@@ -29,6 +30,9 @@ export class RouterRepository {
   @inject(Types.IRouterGateway)
   routerGateway!: RouterGateway;
 
+  @inject(BooksRepository)
+  booksRepository!: BooksRepository;
+
   onRouteChanged = () => console.log("route changed");
 
   routes: Route[] = [
@@ -49,6 +53,47 @@ export class RouterRepository {
       },
       onEnter: undefined,
       onLeave: undefined,
+    },
+    {
+      routeId: "booksLink",
+      routeDef: {
+        path: "/app/books",
+        isSecure: true,
+      },
+      onEnter: () => {
+        this.booksRepository.load();
+      },
+      onLeave: () => {
+        this.booksRepository.reset();
+      },
+    },
+    {
+      routeId: "addBooksLink",
+      routeDef: {
+        path: "/app/books/add",
+        isSecure: true,
+      },
+    },
+    {
+      routeId: "authorsLink",
+      routeDef: {
+        path: "/app/authors",
+        isSecure: true,
+      },
+    },
+    {
+      routeId: "authorsLink-authorPolicyLink",
+      routeDef: {
+        path: "/app/authors/policy",
+        isSecure: false,
+      },
+    },
+    {
+      routeId: "authorsLink-mapLink",
+      routeDef: {
+        path: "/app/authors/map",
+        isSecure: false,
+      },
     },
     {
       routeId: "everyLayoutLink",

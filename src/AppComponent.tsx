@@ -3,6 +3,8 @@ import * as React from "react";
 
 import { AppPresenter } from "./AppPresenter";
 import { LoginRegisterComponent } from "./Authentication/LoginRegisterComponent";
+import { AuthorsComponent } from "./Authors/AuthorsComponent";
+import { BooksComponent } from "./Books/BooksComponent";
 import { useInject } from "./Core/Providers/Injection";
 import { useValidation } from "./Core/Providers/Validation";
 import { EveryLayoutComponent } from "./ExampleComponents/EveryLayoutComponent";
@@ -38,6 +40,14 @@ export const AppComponent = observer(() => {
     {
       id: "rootLink",
       component: <div key="rootLink">root component</div>,
+    },
+    {
+      id: "booksLink",
+      component: <BooksComponent key="booksLink" />,
+    },
+    {
+      id: "authorsLink",
+      component: <AuthorsComponent key="authorsLink" />,
     },
     {
       id: "everyLayoutLink",
