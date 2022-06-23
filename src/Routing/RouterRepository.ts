@@ -33,9 +33,9 @@ export class RouterRepository {
 
   routes: Route[] = [
     {
-      routeId: "rootLink",
+      routeId: "loginLink",
       routeDef: {
-        path: "/",
+        path: "/app/login",
         isSecure: false,
       },
       onEnter: undefined,
@@ -54,15 +54,6 @@ export class RouterRepository {
       routeId: "everyLayoutLink",
       routeDef: {
         path: "/every-layout",
-        isSecure: false,
-      },
-      onEnter: undefined,
-      onLeave: undefined,
-    },
-    {
-      routeId: "loginLink",
-      routeDef: {
-        path: "/app/login",
         isSecure: false,
       },
       onEnter: undefined,

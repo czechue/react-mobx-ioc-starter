@@ -32,7 +32,6 @@ export class MessagesPresenter {
     pm: { success: boolean; serverMessage: string },
     userMessage: string
   ) => {
-    console.log("unpack", pm);
     this.showValidationWarning = !pm.success;
     this.messagesRepository.appMessages = pm.success
       ? [userMessage]
