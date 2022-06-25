@@ -5,6 +5,8 @@ import * as TreeModel from "tree-model";
 import { AuthenticationRepository } from "../Authentication/AuthenticationRepository";
 import { Router } from "../Routing/Router";
 
+let tree = new TreeModel();
+
 @injectable()
 export class NavigationRepository {
   @inject(AuthenticationRepository)
@@ -28,8 +30,6 @@ export class NavigationRepository {
   }
 
   getTree() {
-    let tree = new TreeModel();
-
     return tree.parse({
       id: "homeLink",
       type: "root",
@@ -61,8 +61,8 @@ export class NavigationRepository {
     });
   }
 
-  back = () => {
+  back = async () => {
     let currentNode = this.currentNode;
-    this.router.goToId(currentNode.parent.model.id);
+    await this.router.goToId(currentNode.parent.model.id);
   };
 }
