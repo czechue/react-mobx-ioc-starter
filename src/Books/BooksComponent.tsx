@@ -9,6 +9,7 @@ import { InjectableProps } from "../libs/react-di";
 import { AddBooksComponent } from "./AddBooks/AddBooksComponent";
 import { BookListComponent } from "./BookList/BookListComponent";
 import { BooksPresenter } from "./BooksPresenter";
+import { LastAddedBookComponent } from "./LastAddedBook/LastAddedBookComponent";
 
 const services: InjectableProps<{
   presenter: BooksPresenter;
@@ -26,6 +27,7 @@ export const BooksComponent = observer(() => {
   return (
     <Stack>
       <h1>Books</h1>
+      <LastAddedBookComponent lastAddedBook={presenter.lastAddedBook} />
       <AddBooksComponent presenter={presenter} />
       <BookListComponent />
       <MessagesComponent />

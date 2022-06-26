@@ -43,7 +43,7 @@ export class LoginRegisterPresenter extends MessagesPresenter {
       this.password
     );
 
-    this.unpackRepositoryPmToVm(loginPm, "User logged in");
+    this.messageUnpackRepositoryPmToVm(loginPm, "User logged in");
 
     if (loginPm.success) {
       await this.router.goToId("homeLink", "");
@@ -56,7 +56,7 @@ export class LoginRegisterPresenter extends MessagesPresenter {
       this.password
     );
 
-    this.unpackRepositoryPmToVm(registerPm, "User registered");
+    this.messageUnpackRepositoryPmToVm(registerPm, "User registered");
   };
 
   logOut = async () => {

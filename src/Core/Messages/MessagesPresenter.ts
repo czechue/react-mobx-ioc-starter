@@ -18,7 +18,7 @@ export class MessagesPresenter {
     makeObservable(this, {
       showValidationWarning: observable,
       messages: computed,
-      unpackRepositoryPmToVm: action,
+      messageUnpackRepositoryPmToVm: action,
     });
   }
 
@@ -28,7 +28,7 @@ export class MessagesPresenter {
     this.messagesRepository?.reset();
   };
 
-  unpackRepositoryPmToVm = (
+  messageUnpackRepositoryPmToVm = (
     pm: { success: boolean; serverMessage: string },
     userMessage: string
   ) => {

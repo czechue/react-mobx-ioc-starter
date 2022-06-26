@@ -11,10 +11,13 @@ export class BooksPresenter extends MessagesPresenter {
 
   newBookName = "";
 
+  lastAddedBook = "";
+
   constructor() {
     super();
     makeObservable(this, {
       newBookName: observable,
+      lastAddedBook: observable,
     });
     this.initMessages();
   }
@@ -30,7 +33,12 @@ export class BooksPresenter extends MessagesPresenter {
   addBook = async () => {
     const addBookPm = await this.booksRepository.addBook(this.newBookName);
 
-    this.unpackRepositoryPmToVm(
+    if (addBookPm.success) {
+      this.lastAddedBook = this.newBookName;
+      this.reset();
+    }
+
+    this.messageUnpackRepositoryPmToVm(
       { success: addBookPm.success, serverMessage: addBookPm.result.message },
       `Book [id: ${addBookPm.result.bookId}] created`
     );
