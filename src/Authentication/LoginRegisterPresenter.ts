@@ -12,9 +12,9 @@ export class LoginRegisterPresenter extends MessagesPresenter {
 
   @inject(Router)
   router!: Router;
-
-  email = "";
-  password = "";
+  // todo: remove later
+  email = "czechue@b.com";
+  password = "qwerty";
   option: "login" | "register" = "login";
 
   constructor() {

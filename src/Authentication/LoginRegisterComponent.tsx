@@ -8,8 +8,8 @@ import { useInject } from "../Core/Providers/Injection";
 import { useValidation } from "../Core/Providers/Validation";
 import { InjectableProps } from "../libs/react-di";
 import { LogicRoomLogo } from "./components/LogicRoomLogo";
-import * as S from "./LoginRegister.styled";
 import { LoginRegisterPresenter } from "./LoginRegisterPresenter";
+import * as S from "./LoginRegisterStyled";
 
 const services: InjectableProps<{
   presenter: LoginRegisterPresenter;
@@ -35,7 +35,7 @@ export const LoginRegisterComponent = observer(() => {
     <Center gutters={space.s3}>
       <Stack>
         <LogicRoomLogo />
-        <span>qwerty@abc.com | Test1234</span>
+        <span>czechue@b.com | qwerty</span>
 
         <div>
           <S.Button

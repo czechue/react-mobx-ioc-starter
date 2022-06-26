@@ -1,4 +1,4 @@
-export function GetSuccessfulBookAddedStub(dynamicBookId: string) {
+export function GetSuccessfulBookAddedStub(dynamicBookId?: string) {
   return {
     success: true,
     result: {

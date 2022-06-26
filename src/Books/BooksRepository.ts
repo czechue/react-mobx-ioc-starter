@@ -1,10 +1,43 @@
 import { inject, injectable } from "inversify";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 import { UserModel } from "../Authentication/UserModel";
-// import { HttpConfig } from "../Core/Http/HttpConfig";
 import { HttpGateway } from "../Core/Http/HttpGateway";
 import { Types } from "../Core/Types";
+
+type AddNewBookRequestDto = {
+  name: string;
+  emailOwnerId: string;
+};
+
+type AddNewBookResponseDto = {
+  success: boolean;
+  result: {
+    message: string;
+    bookId: number;
+  };
+};
+
+type BookDto = {
+  bookId: number;
+  name: string;
+  emailOwnerId: string;
+  devOwnerId: string;
+};
+
+type BookListDto = {
+  success: boolean;
+  result: BookDto[];
+};
+
+type BookPm = {
+  bookId: number;
+  name: string;
+  emailOwnerId: string;
+  devOwnerId: string;
+};
+
+type BookListPm = BookPm[];
 
 @injectable()
 export class BooksRepository {
@@ -16,22 +49,38 @@ export class BooksRepository {
   @inject(UserModel)
   userModel!: UserModel;
 
-  // @inject(HttpConfig)
-  // config!: HttpConfig;
-
-  messagePm = "UNSET";
+  bookListPm: BookListPm = [];
 
   constructor() {
-    makeObservable(this, { messagePm: observable });
+    makeObservable(this, {
+      bookListPm: observable,
+      load: action,
+    });
   }
 
-  load = () => {
-    setTimeout(() => {
-      this.messagePm = "LOADED";
-    }, 2000);
+  load = async () => {
+    const bookListDto: BookListDto = await this.dataGateway.get(
+      this.baseUrl + `?emailOwnerId=${this.userModel.email}`
+    );
+
+    this.bookListPm = bookListDto.result;
   };
 
-  reset = () => {
-    this.messagePm = "RESET";
+  addBook = async (newBookName: string) => {
+    const newBookDto: AddNewBookRequestDto = {
+      name: newBookName,
+      emailOwnerId: this.userModel.email,
+    };
+
+    const addBookDto = await this.dataGateway.post<
+      AddNewBookRequestDto,
+      AddNewBookResponseDto
+    >(this.baseUrl, newBookDto);
+
+    if (addBookDto.success) {
+      await this.load();
+    }
+
+    return addBookDto;
   };
 }

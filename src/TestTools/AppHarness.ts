@@ -4,6 +4,7 @@ import { AppPresenter } from "../AppPresenter";
 import { LoginRegisterPresenter } from "../Authentication/LoginRegisterPresenter";
 import { UserModel } from "../Authentication/UserModel";
 import { BaseIOC } from "../BaseIOC";
+import { BookListPresenter } from "../Books/BookList/BookListPresenter";
 import { FakeHttpGateway } from "../Core/Http/FakeHttpGateway";
 import { HttpGateway } from "../Core/Http/HttpGateway";
 import { Types } from "../Core/Types";
@@ -16,13 +17,14 @@ import { SingleBooksResultStub } from "./SingleBooksResultStub";
 export class AppTestHarness {
   container!: Container;
   dataGateway!: HttpGateway;
-  loginRegisterPresenter!: LoginRegisterPresenter;
   router!: Router;
   routerGateway!: RouterGateway;
   routerRepository!: RouterRepository;
   userModel!: UserModel;
 
   appPresenter!: AppPresenter;
+  loginRegisterPresenter!: LoginRegisterPresenter;
+  bookListPresenter!: BookListPresenter;
 
   // 1. set up the app
   init() {

@@ -24,7 +24,7 @@ export class MessagesPresenter {
 
   initMessages = () => {
     this.showValidationWarning = false;
-    // @ts-ignore
+
     this.messagesRepository?.reset();
   };
 
