@@ -20,10 +20,6 @@ const services: InjectableProps<{
 export const BooksComponent = observer(() => {
   const { presenter } = useInject(services);
 
-  useEffect(() => {
-    presenter.load();
-  }, []);
-
   return (
     <Stack>
       <h1>Books</h1>

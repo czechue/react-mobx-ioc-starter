@@ -49,7 +49,7 @@ describe("navigation", () => {
       );
     });
 
-    it("should move back twice", async () => {
+    it("should move back twice from author", async () => {
       await router.goToId("authorsLink");
       await router.goToId("authorsLink-authorPolicyLink");
 
@@ -58,6 +58,20 @@ describe("navigation", () => {
       );
 
       await navigationPresenter.back();
+      await navigationPresenter.back();
+
+      expect(navigationPresenter.viewModel.currentSelectedVisibleName).toBe(
+        "Home > homeLink"
+      );
+    });
+
+    it("should move back from books", async () => {
+      await router.goToId("booksLink");
+
+      expect(navigationPresenter.viewModel.currentSelectedVisibleName).toBe(
+        "Books > booksLink"
+      );
+
       await navigationPresenter.back();
 
       expect(navigationPresenter.viewModel.currentSelectedVisibleName).toBe(

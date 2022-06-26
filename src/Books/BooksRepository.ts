@@ -58,6 +58,10 @@ export class BooksRepository {
     });
   }
 
+  reset = () => {
+    console.log("reset");
+  };
+
   load = async () => {
     const bookListDto: BookListDto = await this.dataGateway.get(
       this.baseUrl + `?emailOwnerId=${this.userModel.email}`
