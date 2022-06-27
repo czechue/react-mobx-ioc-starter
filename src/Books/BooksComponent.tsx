@@ -1,6 +1,5 @@
 import { observer } from "mobx-react";
 import * as React from "react";
-import { useEffect } from "react";
 
 import { Stack } from "../Components/layouts";
 import { MessagesComponent } from "../Core/Messages/MessagesComponent";

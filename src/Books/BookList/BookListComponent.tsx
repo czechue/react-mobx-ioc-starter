@@ -27,7 +27,7 @@ export const BookListComponent = observer(() => {
           );
         })}
       </ul>
-      {presenter.viewModel.showMore && <a href="#">...show more</a>}
+      {presenter.viewModel.showMore && <a href="/">...show more</a>}
     </>
   );
 });

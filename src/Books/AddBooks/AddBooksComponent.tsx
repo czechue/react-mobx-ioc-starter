@@ -22,7 +22,7 @@ export const AddBooksComponent = observer(({ presenter }: AddBooksProps) => {
     return clientValidationMessages.length === 0;
   };
 
-  const addBook: FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleAddBook: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     if (formValid()) {
       await presenter.addBook();
@@ -30,7 +30,7 @@ export const AddBooksComponent = observer(({ presenter }: AddBooksProps) => {
   };
 
   return (
-    <form className="login" onSubmit={addBook}>
+    <form className="login" onSubmit={handleAddBook}>
       <label htmlFor="add-new-book">
         <Sidebar side="right" space="0">
           <S.Input
