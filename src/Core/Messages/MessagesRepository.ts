@@ -3,7 +3,7 @@ import { makeObservable, observable } from "mobx";
 
 @injectable()
 export class MessagesRepository {
-  appMessages: string[] | null = null;
+  appMessages: string[] = [];
 
   constructor() {
     makeObservable(this, {

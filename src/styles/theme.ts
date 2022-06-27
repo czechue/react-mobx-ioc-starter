@@ -4,6 +4,7 @@ const theme: DefaultTheme = {
   space: {
     measure_1: "var(--measure_1)",
     measure: "var(--measure)",
+    measure1: "var(--measure1)",
     ratio: "var(--ratio)",
     s_5: "var(--s-5)",
     s_4: "var(--s-4)",
@@ -18,6 +19,8 @@ const theme: DefaultTheme = {
     s5: "var(--s5)",
   },
   color: {
+    dark: "var(--color-dark)",
+    light: "var(--color-light)",
     primary: "var(--primary)",
     primaryLight: "var(--primaryLight)",
     primaryDark: "var(--primaryDark)",

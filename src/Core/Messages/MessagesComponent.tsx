@@ -10,7 +10,7 @@ import { MessagesPresenter } from "./MessagesPresenter";
 const services: InjectableProps<{
   presenter: MessagesPresenter;
 }> = {
-  presenter: AppPresenter,
+  presenter: MessagesPresenter,
 };
 
 export const MessagesComponent = observer(() => {

@@ -8,7 +8,7 @@ export class MessagesPresenter {
   @inject(MessagesRepository)
   messagesRepository!: MessagesRepository;
 
-  showValidationWarning: boolean | null = null;
+  showValidationWarning = false;
 
   get messages() {
     return this.messagesRepository.appMessages;
@@ -18,16 +18,17 @@ export class MessagesPresenter {
     makeObservable(this, {
       showValidationWarning: observable,
       messages: computed,
-      unpackRepositoryPmToVm: action,
+      messageUnpackRepositoryPmToVm: action,
     });
   }
 
   initMessages = () => {
     this.showValidationWarning = false;
-    // this.reset();
+
+    this.messagesRepository?.reset();
   };
 
-  unpackRepositoryPmToVm = (
+  messageUnpackRepositoryPmToVm = (
     pm: { success: boolean; serverMessage: string },
     userMessage: string
   ) => {

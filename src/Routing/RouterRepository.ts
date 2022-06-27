@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
 
+import { BooksRepository } from "../Books/BooksRepository";
 import { Types } from "../Core/Types";
 import { RouterGateway } from "./RouterGateway";
 
@@ -29,31 +30,75 @@ export class RouterRepository {
   @inject(Types.IRouterGateway)
   routerGateway!: RouterGateway;
 
+  @inject(BooksRepository)
+  booksRepository!: BooksRepository;
+
   onRouteChanged = () => console.log("route changed");
 
   routes: Route[] = [
     {
-      routeId: "rootLink",
+      routeId: "loginLink",
       routeDef: {
-        path: "/",
+        path: "/app/login",
         isSecure: false,
       },
       onEnter: undefined,
       onLeave: undefined,
+    },
+    {
+      routeId: "homeLink",
+      routeDef: {
+        path: "/app/home",
+        isSecure: true,
+      },
+      onEnter: undefined,
+      onLeave: undefined,
+    },
+    {
+      routeId: "booksLink",
+      routeDef: {
+        path: "/app/books",
+        isSecure: true,
+      },
+      onEnter: async () => {
+        await this.booksRepository.load();
+      },
+      onLeave: () => {
+        this.booksRepository.reset();
+      },
+    },
+    {
+      routeId: "addBooksLink",
+      routeDef: {
+        path: "/app/books/add",
+        isSecure: true,
+      },
+    },
+    {
+      routeId: "authorsLink",
+      routeDef: {
+        path: "/app/authors",
+        isSecure: true,
+      },
+    },
+    {
+      routeId: "authorsLink-authorPolicyLink",
+      routeDef: {
+        path: "/app/authors/policy",
+        isSecure: false,
+      },
+    },
+    {
+      routeId: "authorsLink-mapLink",
+      routeDef: {
+        path: "/app/authors/map",
+        isSecure: false,
+      },
     },
     {
       routeId: "everyLayoutLink",
       routeDef: {
         path: "/every-layout",
-        isSecure: false,
-      },
-      onEnter: undefined,
-      onLeave: undefined,
-    },
-    {
-      routeId: "loginLink",
-      routeDef: {
-        path: "/app/login",
         isSecure: false,
       },
       onEnter: undefined,

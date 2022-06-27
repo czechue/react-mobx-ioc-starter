@@ -7,6 +7,7 @@ declare module "styled-components" {
     space: {
       measure_1: string;
       measure: string;
+      measure1: string;
       ratio: string;
       s_5: string;
       s_4: string;
@@ -22,6 +23,8 @@ declare module "styled-components" {
     };
 
     color: {
+      dark: string;
+      light: string;
       primary: string;
       primaryLight: string;
       primaryDark: string;

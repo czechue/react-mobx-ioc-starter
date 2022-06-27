@@ -25,7 +25,7 @@ export class AuthenticationRepository {
   }
 
   login = async (email: string, password: string) => {
-    const loginDto = await this.httpGateway.post("/login", {
+    const loginDto = await this.httpGateway.post<any, any>("/login", {
       email: email,
       password: password,
     });
@@ -39,7 +39,7 @@ export class AuthenticationRepository {
   };
 
   register = async (email: string, password: string) => {
-    const registerDto = await this.httpGateway.post("/register", {
+    const registerDto = await this.httpGateway.post<any, any>("/register", {
       email: email,
       password: password,
     });

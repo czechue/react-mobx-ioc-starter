@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import { computed, makeObservable } from "mobx";
 
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
+import { NavigationPresenter } from "./Navigation/NavigationPresenter";
 import { Router } from "./Routing/Router";
 
 @injectable()
@@ -12,8 +13,15 @@ export class AppPresenter {
   @inject(MessagesRepository)
   messagesRepository!: MessagesRepository;
 
+  @inject(NavigationPresenter)
+  navigationPresenter!: NavigationPresenter;
+
   get currentRoute() {
     return this.router.currentRoute;
+  }
+
+  get currentSelectedVisibleName() {
+    return this.navigationPresenter.viewModel.currentSelectedVisibleName;
   }
 
   constructor() {

@@ -18,16 +18,8 @@ const services: InjectableProps<{
 export const NavigationComponent = observer(() => {
   const { navigationPresenter, routerPresenter } = useInject(services);
 
-  console.log("NavigationComponent");
-
   return (
     <div className="navigation-container">
-      <div
-        className="navigation-item-header"
-        style={{ backgroundColor: "#5BCA06" }}
-      >
-        {navigationPresenter.viewModel.currentSelectedVisibleName}
-      </div>
       {navigationPresenter.viewModel.menuItems.map(
         (menuItem: any, i: number) => {
           return (

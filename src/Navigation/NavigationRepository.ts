@@ -1,9 +1,11 @@
 import { inject, injectable } from "inversify";
 import { action, computed, makeObservable } from "mobx";
-import TreeModel from "tree-model";
+import * as TreeModel from "tree-model";
 
 import { AuthenticationRepository } from "../Authentication/AuthenticationRepository";
 import { Router } from "../Routing/Router";
+
+let tree = new TreeModel();
 
 @injectable()
 export class NavigationRepository {
@@ -28,18 +30,39 @@ export class NavigationRepository {
   }
 
   getTree() {
-    let tree = new TreeModel();
-
     return tree.parse({
       id: "homeLink",
       type: "root",
       text: "Home",
-      children: [],
+      children: [
+        {
+          id: "booksLink",
+          type: "link",
+          text: "Books",
+        },
+        {
+          id: "authorsLink",
+          type: "link",
+          text: "Authors",
+          children: [
+            {
+              id: "authorsLink-authorPolicyLink",
+              type: "link",
+              text: "Author Policy",
+            },
+            {
+              id: "authorsLink-mapLink",
+              type: "link",
+              text: "View Map",
+            },
+          ],
+        },
+      ],
     });
   }
 
-  back = () => {
+  back = async () => {
     let currentNode = this.currentNode;
-    this.router.goToId(currentNode.parent.model.id);
+    await this.router.goToId(currentNode.parent.model.id);
   };
 }

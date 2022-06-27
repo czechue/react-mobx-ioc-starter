@@ -1,11 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { injectable } from "inversify";
-
-import { HttpConfig } from "./HttpConfig";
 
 @injectable()
 export class FakeHttpGateway {
-  config!: HttpConfig;
-
-  // eslint-disable-next-line no-unused-vars
   get = async (path: string) => {};
+
+  post = async (path: string, requestDto: string) => {};
+
+  delete = async (path: string) => {};
 }
