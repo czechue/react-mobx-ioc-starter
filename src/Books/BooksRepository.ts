@@ -2,33 +2,13 @@ import { inject, injectable } from "inversify";
 import { action, makeObservable, observable } from "mobx";
 
 import { UserModel } from "../Authentication/UserModel";
+import type {
+  AddNewBookRequestDto,
+  AddNewBookResponseDto,
+  BookListDto,
+} from "../Core/Http/DTO/BooksDTO";
 import { HttpGateway } from "../Core/Http/HttpGateway";
 import { Types } from "../Core/Types";
-
-type AddNewBookRequestDto = {
-  name: string;
-  emailOwnerId: string;
-};
-
-type AddNewBookResponseDto = {
-  success: boolean;
-  result: {
-    message: string;
-    bookId: number;
-  };
-};
-
-type BookDto = {
-  bookId: number;
-  name: string;
-  emailOwnerId: string;
-  devOwnerId: string;
-};
-
-type BookListDto = {
-  success: boolean;
-  result: BookDto[];
-};
 
 type BookPm = {
   bookId: number;

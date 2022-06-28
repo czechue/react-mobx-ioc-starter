@@ -1,26 +1,54 @@
-import { injectable } from "inversify";
-import { makeObservable, observable } from "mobx";
+import { inject, injectable } from "inversify";
+import { computed, makeObservable, observable } from "mobx";
 
 import { MessagesPresenter } from "../Core/Messages/MessagesPresenter";
+import { AuthorsRepository } from "./AuthorsRepository";
+
+type AuthorVm = {
+  authorId: number;
+  name: string;
+  books: string[];
+};
+
+type AuthorListVm = {
+  authorList: AuthorVm[];
+};
 
 @injectable()
 export class AuthorsPresenter extends MessagesPresenter {
-  authorName!: string;
+  @inject(AuthorsRepository)
+  authorsRepository!: AuthorsRepository;
+
+  get viewModel() {
+    const vm: AuthorListVm = {
+      authorList: [],
+    };
+
+    vm.authorList = this.authorsRepository.authorsListPm.map((author) => {
+      return {
+        ...author,
+        books: author.bookIds.map((bookId) => {
+          return (
+            this.authorsRepository?.bookListPm?.find(
+              (book) => book.bookId === bookId
+            )?.name || ""
+          );
+        }),
+      };
+    });
+
+    return vm;
+  }
 
   constructor() {
     super();
     makeObservable(this, {
-      authorName: observable,
+      viewModel: computed,
     });
+    this.initMessages();
   }
 
   load = async () => {
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        this.authorName = Math.random().toString();
-        console.log("1");
-        resolve({});
-      }, 100)
-    );
+    await this.authorsRepository.load();
   };
 }

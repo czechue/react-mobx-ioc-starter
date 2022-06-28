@@ -3,7 +3,7 @@ import { computed, makeObservable } from "mobx";
 
 import { BooksRepository } from "../BooksRepository";
 
-type BookListVM = {
+type BookListVm = {
   bookList: {
     id: number;
     name: string;
@@ -19,7 +19,7 @@ export class BookListPresenter {
   booksRepository!: BooksRepository;
 
   get viewModel() {
-    const vm: BookListVM = {
+    const vm: BookListVm = {
       bookList: [],
       showMore: false,
     };

@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { Container } from "inversify";
 
 import { UserModel } from "./Authentication/UserModel";
+import { AuthorsRepository } from "./Authors/AuthorsRepository";
 import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";
@@ -33,6 +34,10 @@ export class BaseIOC {
       .inSingletonScope();
     this.container.bind(UserModel).to(UserModel).inSingletonScope();
     this.container.bind(BooksRepository).to(BooksRepository).inSingletonScope();
+    this.container
+      .bind(AuthorsRepository)
+      .to(AuthorsRepository)
+      .inSingletonScope();
     return this.container;
   }
 }

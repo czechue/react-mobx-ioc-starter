@@ -1,4 +1,4 @@
-export function SingleBookResultStub(dynamicBookName: string) {
+export function SingleBookResultStub(dynamicBookName?: string) {
   return {
     success: true,
     result: [
