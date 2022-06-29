@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { action, makeObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 import { UserModel } from "../Authentication/UserModel";
 import { AuthorDto, AuthorsListDto } from "../Core/Http/DTO/AuthorsDTO";
@@ -35,6 +35,8 @@ export class AuthorsRepository {
   constructor() {
     makeObservable(this, {
       load: action,
+      authorsListPm: observable,
+      bookListPm: observable,
     });
   }
 

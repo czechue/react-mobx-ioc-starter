@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
 import { makeObservable, observable } from "mobx";
 
+import { AuthorsRepository } from "../Authors/AuthorsRepository";
 import { BooksRepository } from "../Books/BooksRepository";
 import { Types } from "../Core/Types";
 import { RouterGateway } from "./RouterGateway";
@@ -32,6 +33,9 @@ export class RouterRepository {
 
   @inject(BooksRepository)
   booksRepository!: BooksRepository;
+
+  @inject(AuthorsRepository)
+  authorsRepository!: AuthorsRepository;
 
   onRouteChanged = () => console.log("route changed");
 
@@ -79,6 +83,13 @@ export class RouterRepository {
       routeDef: {
         path: "/app/authors",
         isSecure: true,
+      },
+      onEnter: async () => {
+        await this.booksRepository.load();
+        await this.authorsRepository.load();
+      },
+      onLeave: () => {
+        this.booksRepository.reset();
       },
     },
     {

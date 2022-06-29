@@ -2,9 +2,11 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { useEffect } from "react";
 
+import { BookListComponent } from "../Books/BookList/BookListComponent";
 import { Stack } from "../Components/layouts";
 import { useInject } from "../Core/Providers/Injection";
 import { InjectableProps } from "../libs/react-di";
+import { AuthorListComponent } from "./AuthorList/AuthorListComponent";
 import { AuthorsPresenter } from "./AuthorsPresenter";
 
 const services: InjectableProps<{
@@ -23,15 +25,9 @@ export const AuthorsComponent = observer(() => {
   return (
     <Stack>
       <h1>Authors</h1>
-      <ul>
-        {presenter.viewModel.authorList.map((author) => {
-          return (
-            <li key={author.authorId} style={{ listStyleType: "none" }}>
-              {author.name} | {author.books.join(", ")}
-            </li>
-          );
-        })}
-      </ul>
+      <AuthorListComponent />
+
+      <BookListComponent />
     </Stack>
   );
 });

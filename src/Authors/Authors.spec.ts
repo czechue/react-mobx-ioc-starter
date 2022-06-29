@@ -1,3 +1,4 @@
+import { UserModel } from "../Authentication/UserModel";
 import { BookListPresenter } from "../Books/BookList/BookListPresenter";
 import { BooksRepository } from "../Books/BooksRepository";
 import { HttpGateway } from "../Core/Http/HttpGateway";
@@ -8,15 +9,19 @@ import { GetSuccessfulBookAddedStub } from "../TestTools/GetSuccessfulBookAddedS
 import { GetSuccessfulUserLoginStub } from "../TestTools/GetSuccessfulUserLoginStub";
 import { SingleAuthorsResultStub } from "../TestTools/SingleAuthorsResultStub";
 import { SingleBookResultStub } from "../TestTools/SingleBookResultStub";
+import { SingleBooksResultStub } from "../TestTools/SingleBooksResultStub";
+import { AuthorListPresenter } from "./AuthorList/AuthorListPresenter";
 import { AuthorsPresenter } from "./AuthorsPresenter";
 
 let appTestHarness: AppTestHarness;
 let dataGateway: HttpGateway;
 let authorsPresenter: AuthorsPresenter;
+let authorListPresenter: AuthorListPresenter;
 let bookListPresenter: BookListPresenter;
 let booksRepository: BooksRepository;
 let dynamicBookNamesStack: string[] = [];
 let dynamicBookIdStack: string[] = [];
+// let userModel: UserModel;
 
 describe("authors", () => {
   beforeEach(async () => {
@@ -25,11 +30,17 @@ describe("authors", () => {
     appTestHarness.bootStrap(() => {});
     await appTestHarness.setupLogin(GetSuccessfulUserLoginStub);
     authorsPresenter = appTestHarness.container.get(AuthorsPresenter);
+    authorListPresenter = appTestHarness.container.get(AuthorListPresenter);
     bookListPresenter = appTestHarness.container.get(BookListPresenter);
     booksRepository = appTestHarness.container.get(BooksRepository);
     dataGateway = appTestHarness.container.get(Types.IHttpGateway);
+    // userModel = appTestHarness.container.get(UserModel);
     dynamicBookNamesStack = ["bookA", "bookB", "bookC"];
     dynamicBookIdStack = ["5", "4", "3", "2", "1"];
+    // userModel = {
+    //   email: "a@b.com",
+    //   token: "123",
+    // };
 
     dataGateway.post = jest.fn().mockImplementation((path: string) => {
       if (path.indexOf("/books") !== -1) {
@@ -42,6 +53,9 @@ describe("authors", () => {
     });
 
     dataGateway.get = jest.fn().mockImplementation((path: string) => {
+      if (path.indexOf("/books") !== -1) {
+        return Promise.resolve(SingleBooksResultStub());
+      }
       if (path.indexOf("/authors") !== -1) {
         return Promise.resolve(SingleAuthorsResultStub());
       } else if (path.indexOf("/book?emailOwnerId=a@b.com&bookId=") !== -1) {
@@ -52,9 +66,18 @@ describe("authors", () => {
     });
   });
 
-  describe("loading", async () => {
+  describe("loading", () => {
     it("should load list author and books into ViewModel", async () => {
-      // ...
+      await authorsPresenter.load();
+      await booksRepository.load();
+
+      expect(bookListPresenter.viewModel.bookList.length).toBe(4);
+      expect(authorListPresenter.viewModel.authorList[0].name).toBe(
+        "Isaac Asimov"
+      );
+      expect(authorListPresenter.viewModel.authorList[1].books).toStrictEqual([
+        "Wind In The Willows 2",
+      ]);
     });
 
     it("should show author list (toggle) when has authors", async () => {
