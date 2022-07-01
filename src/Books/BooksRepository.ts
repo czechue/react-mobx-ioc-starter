@@ -67,4 +67,13 @@ export class BooksRepository {
 
     return addBookDto;
   };
+
+  addBookLocally = (newBookName: string) => {
+    this.bookListPm.push({
+      name: newBookName,
+      emailOwnerId: this.userModel.email,
+      devOwnerId: "1",
+      bookId: 1,
+    });
+  };
 }

@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { computed, makeObservable } from "mobx";
+import { computed, makeObservable, observable } from "mobx";
 
 import { AuthorsRepository } from "../AuthorsRepository";
 
@@ -27,15 +27,11 @@ export class AuthorListPresenter {
       return {
         id: author.authorId,
         name: author.name,
-        books: author.bookIds.map((bookId) => {
-          return (
-            this.authorsRepository?.bookListPm?.find(
-              (book) => book.bookId === bookId
-            )?.name || ""
-          );
-        }),
+        books: author.books.map((book) => book.name),
       };
     });
+
+    console.log("11111", vm.authorList);
 
     return vm;
   }
@@ -43,6 +39,7 @@ export class AuthorListPresenter {
   constructor() {
     makeObservable(this, {
       viewModel: computed,
+      authorsRepository: observable,
     });
   }
 }

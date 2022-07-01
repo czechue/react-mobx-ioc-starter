@@ -12,10 +12,13 @@ export type AddNewBookResponseDto = {
 };
 
 export type BookDto = {
-  bookId: number;
-  name: string;
-  emailOwnerId: string;
-  devOwnerId: string;
+  success: boolean;
+  result: {
+    bookId: number;
+    name: string;
+    emailOwnerId: string;
+    devOwnerId: string;
+  }[];
 };
 
 export type BookListDto = {
