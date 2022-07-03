@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { Container } from "inversify";
 
 import { UserModel } from "./Authentication/UserModel";
-import { AuthorsRepository } from "./Authors/AuthorsRepository";
+import { AuthorsRepository } from "./Authors/Repository/AuthorsRepository";
 import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";

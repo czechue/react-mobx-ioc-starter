@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { makeObservable } from "mobx";
 
 import { MessagesPresenter } from "../Core/Messages/MessagesPresenter";
-import { AuthorsRepository } from "./AuthorsRepository";
+import { AuthorsRepository } from "./Repository/AuthorsRepository";
 
 // type AuthorVm = {
 //   authorId: number;

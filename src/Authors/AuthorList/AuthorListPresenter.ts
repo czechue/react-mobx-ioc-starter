@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { computed, makeObservable, observable } from "mobx";
 
-import { AuthorsRepository } from "../AuthorsRepository";
+import { AuthorsRepository } from "../Repository/AuthorsRepository";
 
 type AuthorVm = {
   id: number;

@@ -20,8 +20,8 @@ let authorListPresenter: AuthorListPresenter;
 let bookListPresenter: BookListPresenter;
 let booksRepository: BooksRepository;
 let dynamicBookNamesStack: string[] = [];
-let dynamicBookIdStack: string[] = [];
-// let userModel: UserModel;
+let dynamicBookIdStack: number[] = [];
+let userModel: UserModel;
 
 describe("authors", () => {
   beforeEach(async () => {
@@ -34,18 +34,19 @@ describe("authors", () => {
     bookListPresenter = appTestHarness.container.get(BookListPresenter);
     booksRepository = appTestHarness.container.get(BooksRepository);
     dataGateway = appTestHarness.container.get(Types.IHttpGateway);
-    // userModel = appTestHarness.container.get(UserModel);
+    userModel = appTestHarness.container.get(UserModel);
     dynamicBookNamesStack = ["bookA", "bookB", "bookC"];
-    dynamicBookIdStack = ["5", "4", "3", "2", "1"];
-    // userModel = {
-    //   email: "a@b.com",
-    //   token: "123",
-    // };
+    dynamicBookIdStack = [5, 4, 3, 2, 1];
+    userModel = {
+      email: "a@b.com",
+      token: "123",
+    };
 
     dataGateway.post = jest.fn().mockImplementation((path: string) => {
       if (path.indexOf("/books") !== -1) {
         return Promise.resolve(
-          GetSuccessfulBookAddedStub(dynamicBookIdStack.pop())
+          {}
+          // GetSuccessfulBookAddedStub(dynamicBookIdStack.pop())
         );
       } else if (path.indexOf("/authors") !== -1) {
         return Promise.resolve(GetSuccessfulAuthorAddedStub());
@@ -53,14 +54,16 @@ describe("authors", () => {
     });
 
     dataGateway.get = jest.fn().mockImplementation((path: string) => {
-      if (path.indexOf("/books") !== -1) {
-        return Promise.resolve(SingleBooksResultStub());
-      }
       if (path.indexOf("/authors") !== -1) {
         return Promise.resolve(SingleAuthorsResultStub());
-      } else if (path.indexOf("/book?emailOwnerId=a@b.com&bookId=") !== -1) {
+      } else if (
+        path.indexOf(`/book?emailOwnerId=${userModel.email}&bookId=`) !== -1
+      ) {
         return Promise.resolve(
-          SingleBookResultStub(dynamicBookNamesStack.pop())
+          SingleBookResultStub(
+            dynamicBookNamesStack.pop(),
+            dynamicBookIdStack.pop()
+          )
         );
       }
     });
@@ -69,14 +72,12 @@ describe("authors", () => {
   describe("loading", () => {
     it("should load list author and books into ViewModel", async () => {
       await authorsPresenter.load();
-      await booksRepository.load();
 
-      expect(bookListPresenter.viewModel.bookList.length).toBe(4);
       expect(authorListPresenter.viewModel.authorList[0].name).toBe(
         "Isaac Asimov"
       );
       expect(authorListPresenter.viewModel.authorList[1].books).toStrictEqual([
-        "Wind In The Willows 2",
+        "bookA",
       ]);
     });
 
