@@ -23,10 +23,10 @@ export class LoginRegisterPresenter extends MessagesPresenter {
       email: observable,
       password: observable,
       option: observable,
-      reset: action,
-      login: action,
       register: action,
       logOut: action,
+      reset: action,
+      login: action,
     });
     this.initMessages();
   }

@@ -3,17 +3,18 @@ import * as React from "react";
 
 import { useInject } from "../../Core/Providers/Injection";
 import { InjectableProps } from "../../libs/react-di";
-import { AuthorListPresenter } from "./AuthorListPresenter";
+import { AuthorsPresenter } from "../AuthorsPresenter";
 
 const services: InjectableProps<{
-  presenter: AuthorListPresenter;
+  presenter: AuthorsPresenter;
 }> = {
-  presenter: AuthorListPresenter,
+  presenter: AuthorsPresenter,
 };
 
 export const AuthorListComponent = observer(() => {
   const { presenter } = useInject(services);
 
+  if (!presenter.viewModel.showAuthorList) return null;
   if (presenter.viewModel.authorList.length === 0) return null;
 
   return (

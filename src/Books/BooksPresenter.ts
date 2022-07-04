@@ -34,6 +34,7 @@ export class BooksPresenter extends MessagesPresenter {
     const addBookPm = await this.booksRepository.addBook(this.newBookName);
 
     if (addBookPm.success) {
+      await this.booksRepository.load();
       this.lastAddedBook = this.newBookName;
       this.reset();
     }

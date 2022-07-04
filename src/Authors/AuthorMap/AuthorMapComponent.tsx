@@ -1,6 +1,6 @@
-import { observable } from "mobx";
+import { observer } from "mobx-react";
 import * as React from "react";
 
-export const AddAuthorMapComponent = observable(() => {
+export const AddAuthorMapComponent = observer(() => {
   return <div>AddAuthorMapComponent</div>;
 });

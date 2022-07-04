@@ -3,7 +3,9 @@ import "reflect-metadata";
 import { Container } from "inversify";
 
 import { UserModel } from "./Authentication/UserModel";
-import { AuthorsRepository } from "./Authors/Repository/AuthorsRepository";
+import { AuthorListComponent } from "./Authors/AuthorList/AuthorListComponent";
+import { AuthorsPresenter } from "./Authors/AuthorsPresenter";
+import { AuthorsRepository } from "./Authors/AuthorsRepository";
 import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";
@@ -38,6 +40,11 @@ export class BaseIOC {
       .bind(AuthorsRepository)
       .to(AuthorsRepository)
       .inSingletonScope();
+    this.container
+      .bind(AuthorsPresenter)
+      .to(AuthorsPresenter)
+      .inSingletonScope();
+
     return this.container;
   }
 }

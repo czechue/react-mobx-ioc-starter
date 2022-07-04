@@ -4,11 +4,13 @@ import { FormEventHandler } from "react";
 
 import { Sidebar } from "../../Components/layouts";
 import { useValidation } from "../../Core/Providers/Validation";
-import { BooksPresenter } from "../BooksPresenter";
 import * as S from "./AddBooksStyled";
 
 type AddBooksProps = {
-  presenter: BooksPresenter;
+  presenter: {
+    newBookName: string;
+    addBook: () => void;
+  };
 };
 
 export const AddBooksComponent = observer(({ presenter }: AddBooksProps) => {
@@ -30,7 +32,7 @@ export const AddBooksComponent = observer(({ presenter }: AddBooksProps) => {
   };
 
   return (
-    <form className="login" onSubmit={handleAddBook}>
+    <form onSubmit={handleAddBook}>
       <label htmlFor="add-new-book">
         <Sidebar side="right" space="0">
           <S.Input
@@ -39,7 +41,6 @@ export const AddBooksComponent = observer(({ presenter }: AddBooksProps) => {
             value={presenter.newBookName}
             placeholder="Enter book name"
             onChange={(event) => {
-              console.log("1");
               presenter.newBookName = event.target.value;
             }}
           />

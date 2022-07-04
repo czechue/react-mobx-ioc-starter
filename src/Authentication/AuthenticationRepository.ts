@@ -21,6 +21,8 @@ export class AuthenticationRepository {
   constructor() {
     makeObservable(this, {
       login: action,
+      register: action,
+      logOut: action,
     });
   }
 

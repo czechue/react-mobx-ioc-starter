@@ -7,21 +7,22 @@ import type {
   AddNewBookResponseDto,
   BookListDto,
 } from "../Core/Http/DTO/BooksDTO";
+import { BookDto } from "../Core/Http/DTO/BooksDTO";
 import { HttpGateway } from "../Core/Http/HttpGateway";
 import { Types } from "../Core/Types";
 
 type BookPm = {
-  bookId: number;
+  bookId?: number;
   name: string;
-  emailOwnerId: string;
-  devOwnerId: string;
 };
 
 type BookListPm = BookPm[];
 
 @injectable()
 export class BooksRepository {
-  baseUrl = "/books";
+  bookUrl = "/book";
+
+  booksUrl = "/books";
 
   @inject(Types.IHttpGateway)
   dataGateway!: HttpGateway;
@@ -35,45 +36,43 @@ export class BooksRepository {
     makeObservable(this, {
       bookListPm: observable,
       load: action,
+      reset: action,
+      addBook: action,
+      updateBookListPm: action,
     });
   }
 
+  updateBookListPm = (bookName: string) => {
+    this.bookListPm.push({ name: bookName });
+  };
+
   reset = () => {
-    console.log("reset");
+    this.bookListPm = [];
   };
 
   load = async () => {
     const bookListDto: BookListDto = await this.dataGateway.get(
-      this.baseUrl + `?emailOwnerId=${this.userModel.email}`
+      this.booksUrl + `?emailOwnerId=${this.userModel.email}`
     );
 
     this.bookListPm = bookListDto.result;
   };
 
-  addBook = async (newBookName: string) => {
+  getBook = async (bookId: number): Promise<BookDto> => {
+    return this.dataGateway.get(
+      this.bookUrl + `?emailOwnerId=${this.userModel.email}&bookId=${bookId}`
+    );
+  };
+
+  addBook = async (newBookName: string): Promise<AddNewBookResponseDto> => {
     const newBookDto: AddNewBookRequestDto = {
       name: newBookName,
       emailOwnerId: this.userModel.email,
     };
 
-    const addBookDto = await this.dataGateway.post<
+    return await this.dataGateway.post<
       AddNewBookRequestDto,
       AddNewBookResponseDto
-    >(this.baseUrl, newBookDto);
-
-    if (addBookDto.success) {
-      await this.load();
-    }
-
-    return addBookDto;
-  };
-
-  addBookLocally = (newBookName: string) => {
-    this.bookListPm.push({
-      name: newBookName,
-      emailOwnerId: this.userModel.email,
-      devOwnerId: "1",
-      bookId: 1,
-    });
+    >(this.booksUrl, newBookDto);
   };
 }

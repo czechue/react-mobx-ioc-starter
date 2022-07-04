@@ -11,17 +11,19 @@ export type AddNewBookResponseDto = {
   };
 };
 
+type Book = {
+  bookId: number;
+  name: string;
+  emailOwnerId: string;
+  devOwnerId: string;
+};
+
 export type BookDto = {
   success: boolean;
-  result: {
-    bookId: number;
-    name: string;
-    emailOwnerId: string;
-    devOwnerId: string;
-  }[];
+  result: Book[];
 };
 
 export type BookListDto = {
   success: boolean;
-  result: BookDto[];
+  result: Book[];
 };
