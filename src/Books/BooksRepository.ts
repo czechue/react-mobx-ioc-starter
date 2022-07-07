@@ -51,9 +51,7 @@ export class BooksRepository {
   };
 
   load = async () => {
-    const bookListDto: BookListDto = await this.dataGateway.get(
-      this.booksUrl + `?emailOwnerId=${this.userModel.email}`
-    );
+    const bookListDto = await this.getBooks();
 
     this.bookListPm = bookListDto.result;
   };
@@ -62,6 +60,14 @@ export class BooksRepository {
     return this.dataGateway.get(
       this.bookUrl + `?emailOwnerId=${this.userModel.email}&bookId=${bookId}`
     );
+  };
+
+  getBooks = async () => {
+    const bookListDto: BookListDto = await this.dataGateway.get(
+      this.booksUrl + `?emailOwnerId=${this.userModel.email}`
+    );
+
+    return bookListDto;
   };
 
   addBook = async (newBookName: string): Promise<AddNewBookResponseDto> => {

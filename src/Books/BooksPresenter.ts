@@ -44,4 +44,6 @@ export class BooksPresenter extends MessagesPresenter {
       `Book [id: ${addBookPm.result.bookId}] created`
     );
   };
+
+  onDoSmth = () => {};
 }

@@ -33,6 +33,7 @@ export class NavigationPresenter {
           visible: true,
           id: currentNode.parent.model.id,
         };
+
         vm.showBack = true;
       }
     }

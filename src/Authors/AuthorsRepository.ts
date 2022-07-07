@@ -9,7 +9,7 @@ import {
   CreateAuthorRequestDto,
   CreateAuthorResponseDto,
 } from "../Core/Http/DTO/AuthorsDTO";
-import { BookDto } from "../Core/Http/DTO/BooksDTO";
+import { BookDto, BookListDto } from "../Core/Http/DTO/BooksDTO";
 import { HttpGateway } from "../Core/Http/HttpGateway";
 import { MessagePacking } from "../Core/Messages/MessagePacking";
 import { Types } from "../Core/Types";
@@ -57,20 +57,28 @@ export class AuthorsRepository {
     this.booksRepository.reset();
 
     const authorsDto = await this.getAuthors();
+    const allBooksDto = await this.booksRepository.getBooks();
 
-    if (authorsDto.success) {
-      this.authorsListPm = authorsDto.result.map((author) => ({
-        ...author,
-        books: [],
-      }));
-
-      const allBooksDto = await this.getBooksOfAuthors(authorsDto);
-
-      this.authorsListPm = this.authorsListPm.map((author) => ({
-        ...author,
-        books: this.filterBooksOfAuthor(author, allBooksDto),
-      }));
+    if (authorsDto.success && allBooksDto.success) {
+      this.authorsListPm = this.filterBooksOfAuthor(authorsDto, allBooksDto);
     }
+  };
+
+  // todo: to service?
+  filterBooksOfAuthor = (
+    authorsDto: AuthorsListDto,
+    allBooksDto: BookListDto
+  ) => {
+    return authorsDto.result.map((author) => {
+      const authorBooks = allBooksDto.result.filter((book) =>
+        author.bookIds.includes(book.bookId)
+      );
+
+      return {
+        ...author,
+        books: authorBooks,
+      };
+    });
   };
 
   getAuthors = async () => {
@@ -108,24 +116,6 @@ export class AuthorsRepository {
     const addAuthorDto = await this.addAuthor(newAuthorName, justAddedBookIds);
 
     return MessagePacking.unpackServerDtoToPm(addAuthorDto);
-  };
-
-  getBooksOfAuthors = async (authorsDto: AuthorsListDto) => {
-    const booksOfAuthorsPromises = authorsDto.result.flatMap((author) => {
-      return author.bookIds.map(async (bookId) => {
-        return this.booksRepository.getBook(bookId);
-      });
-    });
-
-    return await Promise.all(booksOfAuthorsPromises);
-  };
-
-  filterBooksOfAuthor = (author: AuthorDto, allBooks: BookDto[]) => {
-    const booksOfAuthorsMapped = allBooks.flatMap((book) => book.result);
-
-    return booksOfAuthorsMapped.filter((b) =>
-      author.bookIds.includes(b.bookId)
-    );
   };
 
   addBookInMemory = (newBookName: string) => {
