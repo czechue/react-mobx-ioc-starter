@@ -5,7 +5,7 @@ import { BooksRepository } from "../BooksRepository";
 
 type BookListVm = {
   bookList: {
-    id: number;
+    id?: number;
     name: string;
   }[];
   showMore: boolean;
