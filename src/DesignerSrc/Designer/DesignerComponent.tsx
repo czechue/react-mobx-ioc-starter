@@ -1,8 +1,8 @@
 import { observer } from "mobx-react";
 import * as React from "react";
 
-import { useInject } from "../Core/Providers/Injection";
-import { InjectableProps } from "../libs/react-di";
+import { useInject } from "../../Core/Providers/Injection";
+import { InjectableProps } from "../../libs/react-di";
 import { ArtboardComponent } from "./Artboard/ArtboardComponent";
 import { DesignerLayout } from "./DesignerLayout";
 import { DesignerPresenters } from "./DesignerPresenters";

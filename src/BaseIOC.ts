@@ -7,10 +7,10 @@ import { AuthorsPresenter } from "./Authors/AuthorsPresenter";
 import { AuthorsRepository } from "./Authors/AuthorsRepository";
 import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
-import { CustomizationRepository } from "./Designer/repositories/CustomizationRepository";
-import { DraftRepository } from "./Designer/repositories/DraftRepository";
-import { GeneratorRepository } from "./Designer/repositories/GeneratorRepository";
-import { ProductRepository } from "./Designer/repositories/ProductRepository";
+import { CustomizationRepository } from "./DesignerSrc/Repositories/CustomizationRepository";
+import { DraftRepository } from "./DesignerSrc/Repositories/DraftRepository";
+import { GeneratorRepository } from "./DesignerSrc/Repositories/GeneratorRepository";
+import { ProductRepository } from "./DesignerSrc/Repositories/ProductRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";
 import { RouterRepository } from "./Routing/RouterRepository";
 

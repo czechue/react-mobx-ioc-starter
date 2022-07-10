@@ -14,9 +14,9 @@ export const NavigationPanelComponent = observer(() => {
   const { presenter } = useInject(services);
 
   return (
-    <>
+    <div style={{ width: "100px" }}>
       <button onClick={presenter.goBack}> Back </button> |{" "}
       <button onClick={presenter.submitDraft}>Next</button>
-    </>
+    </div>
   );
 });

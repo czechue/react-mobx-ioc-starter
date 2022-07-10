@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { action, makeObservable } from "mobx";
 
-import { DraftRepository } from "../../repositories/DraftRepository";
+import { DraftRepository } from "../../Repositories/DraftRepository";
 
 @injectable()
 export class NavigationPanelPresenter {

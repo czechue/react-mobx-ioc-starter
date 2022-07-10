@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Box, Cover } from "../../Components/layouts";
+import { Box, Cover } from "../../../Components/layouts";
 
 export const Artboard = ({ children }: { children: ReactNode }) => {
   return <Cover centered="article">{children}</Cover>;
