@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import { Box, Center, Sidebar } from "../../Components/layouts";
+import { Box, Center, Sidebar } from "../Components/layouts";
 
 export const DesignerLayout = ({ children }: { children: ReactNode }) => {
   return (

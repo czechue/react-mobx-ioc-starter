@@ -1,4 +1,4 @@
 // the same pattern as Artboard module
-export const Preview = () => {
+export const PreviewComponent = () => {
   return <div>Preview</div>;
 };

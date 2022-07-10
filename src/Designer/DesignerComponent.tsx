@@ -3,58 +3,38 @@ import * as React from "react";
 
 import { useInject } from "../Core/Providers/Injection";
 import { InjectableProps } from "../libs/react-di";
-import { Artboard } from "./Artboard/Artboard";
-import { ArtboardBottombar } from "./Artboard/ArtboardBottombar/ArtboardBottombar";
-import { ArtboardCanvas } from "./Artboard/ArtboardCanvas/ArtboardCanvas";
-import { ArtboardLeftbar } from "./Artboard/ArtboardLeftbar/ArtboardLeftbar";
-import { ArtboardRightbar } from "./Artboard/ArtboardRightbar/ArtboardRightbar";
-import { ArtboardTopbar } from "./Artboard/ArtboardTopbar/ArtboardTopbar";
-import { DesignerLayout } from "./DesignerLayout/DesignerLayout";
+import { ArtboardComponent } from "./Artboard/ArtboardComponent";
+import { DesignerLayout } from "./DesignerLayout";
 import { DesignerPresenters } from "./DesignerPresenters";
-import { Preview } from "./Preview/Preview";
+import { PreviewComponent } from "./Preview/PreviewComponent";
+import { SidebarComponent } from "./Sidebar/SidebarComponent";
 
 const services: InjectableProps<{
-  presenter: DesignerPresenters;
+  presenters: DesignerPresenters;
 }> = {
-  presenter: DesignerPresenters,
+  presenters: DesignerPresenters,
 };
 
 export const DesignerComponent = observer(() => {
-  const { presenter } = useInject(services);
+  const { presenters } = useInject(services);
 
   return (
     <DesignerLayout>
-      <DesignerLayout.Sidebar>Sidebar</DesignerLayout.Sidebar>
+      <DesignerLayout.Sidebar>
+        <SidebarComponent />
+      </DesignerLayout.Sidebar>
       <DesignerLayout.Main>
-        <button onClick={() => (presenter.visiblePage = "Artboard")}>
+        <button onClick={() => (presenters.visiblePage = "Artboard")}>
           Design
         </button>{" "}
         |{" "}
-        <button onClick={() => (presenter.visiblePage = "Preview")}>
+        <button onClick={() => (presenters.visiblePage = "Preview")}>
           Preview
         </button>
-        {presenter.visiblePage === "Artboard" && (
-          <Artboard>
-            <Artboard.Row>
-              <ArtboardTopbar />
-            </Artboard.Row>
-            <Artboard.Middle>
-              <Artboard.Column width="100px">
-                <ArtboardLeftbar />
-              </Artboard.Column>
-              <Artboard.Column width="600px">
-                <ArtboardCanvas />
-              </Artboard.Column>
-              <Artboard.Column width="100px">
-                <ArtboardRightbar />
-              </Artboard.Column>
-            </Artboard.Middle>
-            <Artboard.Row>
-              <ArtboardBottombar />
-            </Artboard.Row>
-          </Artboard>
+        {presenters.visiblePage === "Artboard" && (
+          <ArtboardComponent presenter={presenters.artboardPresenter} />
         )}
-        {presenter.visiblePage === "Preview" && <Preview />}
+        {presenters.visiblePage === "Preview" && <PreviewComponent />}
       </DesignerLayout.Main>
     </DesignerLayout>
   );

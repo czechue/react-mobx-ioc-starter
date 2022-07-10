@@ -7,9 +7,10 @@ import { AuthorsPresenter } from "./Authors/AuthorsPresenter";
 import { AuthorsRepository } from "./Authors/AuthorsRepository";
 import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
-import { CustomizationRepository } from "./Designer/Repositories/CustomizationRepository";
-import { GeneratorRepository } from "./Designer/Repositories/GeneratorRepository";
-import { ProductRepository } from "./Designer/Repositories/ProductRepository";
+import { CustomizationRepository } from "./Designer/repositories/CustomizationRepository";
+import { DraftRepository } from "./Designer/repositories/DraftRepository";
+import { GeneratorRepository } from "./Designer/repositories/GeneratorRepository";
+import { ProductRepository } from "./Designer/repositories/ProductRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";
 import { RouterRepository } from "./Routing/RouterRepository";
 
@@ -60,6 +61,7 @@ export class BaseIOC {
       .bind(ProductRepository)
       .to(ProductRepository)
       .inSingletonScope();
+    this.container.bind(DraftRepository).to(DraftRepository).inSingletonScope();
 
     return this.container;
   }
