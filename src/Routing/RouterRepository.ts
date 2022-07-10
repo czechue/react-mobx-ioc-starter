@@ -50,6 +50,15 @@ export class RouterRepository {
       onLeave: undefined,
     },
     {
+      routeId: "designerLink",
+      routeDef: {
+        path: "/app/designer",
+        isSecure: false,
+      },
+      onEnter: undefined,
+      onLeave: undefined,
+    },
+    {
       routeId: "homeLink",
       routeDef: {
         path: "/app/home",

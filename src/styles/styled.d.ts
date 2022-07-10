@@ -8,6 +8,7 @@ declare module "styled-components" {
       measure_1: string;
       measure: string;
       measure1: string;
+      measure2: string;
       ratio: string;
       s_5: string;
       s_4: string;

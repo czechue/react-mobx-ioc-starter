@@ -36,6 +36,11 @@ export class NavigationRepository {
       text: "Home",
       children: [
         {
+          id: "designerLink",
+          type: "link",
+          text: "Designer",
+        },
+        {
           id: "booksLink",
           type: "link",
           text: "Books",

@@ -9,6 +9,7 @@ import { BooksComponent } from "./Books/BooksComponent";
 import { Box, Center, Sidebar } from "./Components/layouts";
 import { useInject } from "./Core/Providers/Injection";
 import { useValidation } from "./Core/Providers/Validation";
+import { DesignerComponent } from "./Designer/DesignerComponent";
 import { EveryLayoutComponent } from "./ExampleComponents/EveryLayoutComponent";
 import { HomeComponent } from "./Home/HomeComponent";
 import { InjectableProps } from "./libs/react-di";
@@ -64,6 +65,10 @@ export const AppComponent = observer(() => {
       component: <div key="faqLink">faq component</div>,
     },
   ];
+
+  if (appPresenter.currentRoute.routeId === "designerLink") {
+    return <DesignerComponent />;
+  }
 
   return (
     <div>
