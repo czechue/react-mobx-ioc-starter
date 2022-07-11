@@ -2,6 +2,7 @@ import { observer } from "mobx-react";
 import * as React from "react";
 import { useEffect } from "react";
 
+import { VisiblePage } from "../DesignerTypes";
 import { ArtboardBottombar } from "./ArtboardBottombar/ArtboardBottombar";
 import { ArtboardCanvas } from "./ArtboardCanvas/ArtboardCanvas";
 import { Artboard } from "./ArtboardLayout";
@@ -12,32 +13,36 @@ import { ArtboardTopbar } from "./ArtboardTopbar/ArtboardTopbar";
 
 type ArtboardProps = {
   presenter: ArtboardPresenter;
+  // eslint-disable-next-line no-unused-vars
+  setVisiblePage: (page: VisiblePage) => void;
 };
 
-export const ArtboardComponent = observer(({ presenter }: ArtboardProps) => {
-  useEffect(() => {
-    presenter.load();
-  }, []);
+export const ArtboardComponent = observer(
+  ({ presenter, setVisiblePage }: ArtboardProps) => {
+    useEffect(() => {
+      presenter.load();
+    }, []);
 
-  return (
-    <Artboard>
-      <Artboard.Row>
-        <ArtboardTopbar vm={presenter.viewModel.topbar} />
-      </Artboard.Row>
-      <Artboard.Middle>
-        <Artboard.Column width="100px">
-          <ArtboardLeftbar />
-        </Artboard.Column>
-        <Artboard.Column width="600px">
-          <ArtboardCanvas />
-        </Artboard.Column>
-        <Artboard.Column width="100px">
-          <ArtboardRightbar />
-        </Artboard.Column>
-      </Artboard.Middle>
-      <Artboard.Row>
-        <ArtboardBottombar />
-      </Artboard.Row>
-    </Artboard>
-  );
-});
+    return (
+      <Artboard>
+        <Artboard.Row>
+          <ArtboardTopbar vm={presenter.viewModel.topbar} />
+        </Artboard.Row>
+        <Artboard.Middle>
+          <Artboard.Column width="100px">
+            <ArtboardLeftbar />
+          </Artboard.Column>
+          <Artboard.Column width="600px">
+            <ArtboardCanvas />
+          </Artboard.Column>
+          <Artboard.Column width="100px">
+            <ArtboardRightbar />
+          </Artboard.Column>
+        </Artboard.Middle>
+        <Artboard.Row>
+          <ArtboardBottombar setVisiblePage={setVisiblePage} />
+        </Artboard.Row>
+      </Artboard>
+    );
+  }
+);

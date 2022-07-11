@@ -1,3 +1,9 @@
+import { ProductCanvasComponent } from "../../../Features/ProductCanvas/ProductCanvasComponent";
+
 export const ArtboardCanvas = () => {
-  return <div>ArtboardCanvas</div>;
+  return (
+    <section id="artboard-canvas">
+      <ProductCanvasComponent />
+    </section>
+  );
 };

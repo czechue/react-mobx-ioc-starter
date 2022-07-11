@@ -1,3 +1,3 @@
 export const ArtboardRightbar = () => {
-  return <div>rightbar</div>;
+  return <div>Right Bar</div>;
 };

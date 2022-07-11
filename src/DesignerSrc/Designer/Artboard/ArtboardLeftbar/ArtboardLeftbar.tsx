@@ -1,3 +1,3 @@
 export const ArtboardLeftbar = () => {
-  return <div>ArtboardLeftbar</div>;
+  return <div>Left Bar</div>;
 };

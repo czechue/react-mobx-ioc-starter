@@ -24,17 +24,15 @@ export const DesignerComponent = observer(() => {
         <SidebarComponent />
       </DesignerLayout.Sidebar>
       <DesignerLayout.Main>
-        <button onClick={() => (presenters.visiblePage = "Artboard")}>
-          Design
-        </button>{" "}
-        |{" "}
-        <button onClick={() => (presenters.visiblePage = "Preview")}>
-          Preview
-        </button>
         {presenters.visiblePage === "Artboard" && (
-          <ArtboardComponent presenter={presenters.artboardPresenter} />
+          <ArtboardComponent
+            presenter={presenters.artboardPresenter}
+            setVisiblePage={presenters.setVisiblePage}
+          />
         )}
-        {presenters.visiblePage === "Preview" && <PreviewComponent />}
+        {presenters.visiblePage === "Preview" && (
+          <PreviewComponent setVisiblePage={presenters.setVisiblePage} />
+        )}
       </DesignerLayout.Main>
     </DesignerLayout>
   );

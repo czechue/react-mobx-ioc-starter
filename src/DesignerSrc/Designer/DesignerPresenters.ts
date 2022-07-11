@@ -1,11 +1,10 @@
 import { inject, injectable } from "inversify";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 import { ArtboardPresenter } from "./Artboard/ArtboardPresenter";
+import { VisiblePage } from "./DesignerTypes";
 import { PreviewPresenter } from "./Preview/PreviewPresenter";
 import { SidebarPresenter } from "./Sidebar/SidebarPresenter";
-
-type VisiblePage = "Artboard" | "Preview";
 
 @injectable()
 export class DesignerPresenters {
@@ -27,6 +26,11 @@ export class DesignerPresenters {
       artboardPresenter: observable,
       previewPresenter: observable,
       sidebarPresenter: observable,
+      setVisiblePage: action,
     });
   }
+
+  setVisiblePage = (page: VisiblePage) => {
+    this.visiblePage = page;
+  };
 }
