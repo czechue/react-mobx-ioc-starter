@@ -14,11 +14,10 @@ type ArtboardProps = {
 };
 
 export const ArtboardComponent = observer(({ presenter }: ArtboardProps) => {
-  console.log("ArtboardComponent", presenter.viewModel);
   return (
     <Artboard>
       <Artboard.Row>
-        <ArtboardTopbar vm={presenter.viewModel.topbarVm} />
+        <ArtboardTopbar vm={presenter.viewModel.topbar} />
       </Artboard.Row>
       <Artboard.Middle>
         <Artboard.Column width="100px">

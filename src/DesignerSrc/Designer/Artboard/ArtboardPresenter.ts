@@ -13,15 +13,15 @@ export class ArtboardPresenter {
 
   get viewModel() {
     const vm: ArtboardViewModel = {
-      topbarVm: {
+      topbar: {
         showCentral: false,
         showControls: false,
         showNavigationPanel: true,
       },
-      rightbarVm: {},
-      bottombarVm: {},
-      leftbarVm: {},
-      canvasVm: {},
+      rightbar: {},
+      bottombar: {},
+      leftbar: {},
+      canvas: {},
     };
 
     return vm;

@@ -13,9 +13,9 @@ export type ArtboardLeftbarVm = any;
 export type ArtboardCanvasVm = any;
 
 export type ArtboardViewModel = {
-  topbarVm: ArtboardTopbarVm;
-  rightbarVm: ArtboardRightbarVm;
-  bottombarVm: ArtboardBottombarVm;
-  leftbarVm: ArtboardLeftbarVm;
-  canvasVm: ArtboardCanvasVm;
+  topbar: ArtboardTopbarVm;
+  rightbar: ArtboardRightbarVm;
+  bottombar: ArtboardBottombarVm;
+  leftbar: ArtboardLeftbarVm;
+  canvas: ArtboardCanvasVm;
 };
