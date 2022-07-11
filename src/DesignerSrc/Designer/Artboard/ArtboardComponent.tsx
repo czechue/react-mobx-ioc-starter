@@ -1,5 +1,6 @@
 import { observer } from "mobx-react";
 import * as React from "react";
+import { useEffect } from "react";
 
 import { ArtboardBottombar } from "./ArtboardBottombar/ArtboardBottombar";
 import { ArtboardCanvas } from "./ArtboardCanvas/ArtboardCanvas";
@@ -14,6 +15,10 @@ type ArtboardProps = {
 };
 
 export const ArtboardComponent = observer(({ presenter }: ArtboardProps) => {
+  useEffect(() => {
+    presenter.loadCustomization();
+  }, []);
+
   return (
     <Artboard>
       <Artboard.Row>

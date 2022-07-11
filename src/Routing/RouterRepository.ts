@@ -4,6 +4,7 @@ import { makeObservable, observable } from "mobx";
 import { AuthorsRepository } from "../Authors/AuthorsRepository";
 import { BooksRepository } from "../Books/BooksRepository";
 import { Types } from "../Core/Types";
+import { CustomizationRepository } from "../DesignerSrc/Repositories/CustomizationRepository";
 import { RouterGateway } from "./RouterGateway";
 
 type Route = {
@@ -37,6 +38,9 @@ export class RouterRepository {
   @inject(AuthorsRepository)
   authorsRepository!: AuthorsRepository;
 
+  @inject(CustomizationRepository)
+  customizationRepository!: CustomizationRepository;
+
   onRouteChanged = () => console.log("route changed");
 
   routes: Route[] = [
@@ -52,7 +56,7 @@ export class RouterRepository {
     {
       routeId: "designerLink",
       routeDef: {
-        path: "/app/designer",
+        path: "/app/designer/:customizationId",
         isSecure: false,
       },
       onEnter: undefined,
@@ -149,11 +153,12 @@ export class RouterRepository {
 
       routeConfig[route.routeDef.path] = {
         as: route.routeId,
-        uses: (match: { queryString: any }) => {
+        uses: (match: { queryString: any; data: any }) => {
+          console.log("query", match);
           updateCurrentRoute(
             route.routeId,
             route.routeDef,
-            {},
+            match.data,
             match.queryString
           );
         },

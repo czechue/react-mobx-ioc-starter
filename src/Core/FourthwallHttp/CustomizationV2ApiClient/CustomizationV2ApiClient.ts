@@ -1,10 +1,16 @@
-import type { paths } from "../schema";
-import { ApiBase } from "./ApiBase";
+import { AxiosResponse } from "axios";
+import { injectable } from "inversify";
 
-namespace CustomizationV2Api {
+import { ApiBase } from "../ApiBase/ApiBase";
+import type { paths } from "../schema";
+import { GetCustomizationSuccessResponse } from "./mocks/GetCustomizationSuccessResponse";
+
+export namespace CustomizationV2Api {
   export module getCustomization {
-    export type Response =
-      paths["/api/v2/customization/{customizationId}"]["get"]["responses"]["200"]["content"]["application/json"];
+    export type Response = Omit<
+      paths["/api/v2/customization/{customizationId}"]["get"]["responses"]["200"]["content"]["application/json"],
+      "product"
+    >;
     export type Params =
       paths["/api/v2/customization/{customizationId}"]["get"]["parameters"]["path"];
   }
@@ -28,13 +34,26 @@ namespace CustomizationV2Api {
   }
 }
 
-class CustomizationV2ApiModel extends ApiBase {
+@injectable()
+export class CustomizationV2ApiClient extends ApiBase {
   getCustomization = (
-    customizationId: CustomizationV2Api.getCustomization.Params["customizationId"]
-  ) => {
-    return this.get<CustomizationV2Api.getCustomization.Response>(
-      `/v2/customization/${customizationId}`
-    );
+    customizationId: CustomizationV2Api.getCustomization.Params["customizationId"] = "1"
+  ): Promise<AxiosResponse<CustomizationV2Api.getCustomization.Response>> => {
+    //
+    // return this.get<CustomizationV2Api.getCustomization.Response>(
+    //   `/v2/customization/${customizationId}`
+    // );
+
+    const response = {
+      data: GetCustomizationSuccessResponse(customizationId),
+      status: 200,
+    } as any;
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        return resolve(response);
+      }, 100);
+    });
   };
 
   createOffer = (
@@ -58,5 +77,3 @@ class CustomizationV2ApiModel extends ApiBase {
     >(`/v2/customization/${customizationId}/update_offer/${offerId}`, body);
   };
 }
-
-export const CustomizationV2ApiClient = new CustomizationV2ApiModel();

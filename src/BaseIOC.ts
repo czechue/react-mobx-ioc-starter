@@ -9,7 +9,7 @@ import { BooksRepository } from "./Books/BooksRepository";
 import { MessagesRepository } from "./Core/Messages/MessagesRepository";
 import { CustomizationRepository } from "./DesignerSrc/Repositories/CustomizationRepository";
 import { DraftRepository } from "./DesignerSrc/Repositories/DraftRepository";
-import { GeneratorRepository } from "./DesignerSrc/Repositories/GeneratorRepository";
+import { ProductGeneratorRepository } from "./DesignerSrc/Repositories/ProductGeneratorRepository";
 import { ProductRepository } from "./DesignerSrc/Repositories/ProductRepository";
 import { NavigationRepository } from "./Navigation/NavigationRepository";
 import { RouterRepository } from "./Routing/RouterRepository";
@@ -54,8 +54,8 @@ export class BaseIOC {
       .to(CustomizationRepository)
       .inSingletonScope();
     this.container
-      .bind(GeneratorRepository)
-      .to(GeneratorRepository)
+      .bind(ProductGeneratorRepository)
+      .to(ProductGeneratorRepository)
       .inSingletonScope();
     this.container
       .bind(ProductRepository)

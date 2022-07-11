@@ -11,8 +11,8 @@ export class RouterGateway {
   registerRoutes = async (routeConfig) => {
     if (this.navigo) return new Promise((resolve) => setTimeout(resolve, 0));
     this.navigo = new Navigo("/");
-    let self = this.navigo;
-    self
+    let router = this.navigo;
+    router
       .on(routeConfig)
       .notFound(() => {})
       .resolve();
