@@ -16,7 +16,7 @@ type ArtboardProps = {
 
 export const ArtboardComponent = observer(({ presenter }: ArtboardProps) => {
   useEffect(() => {
-    presenter.loadCustomization();
+    presenter.load();
   }, []);
 
   return (

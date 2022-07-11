@@ -35,7 +35,7 @@ export class ArtboardPresenter {
     return vm;
   }
 
-  loadCustomization = async () => {
+  load = async () => {
     // todo: fix getting current pathId from router (for now mocked customization id)
     const customizationId =
       typeof this.router.currentRoute.params === "string"
